@@ -189,6 +189,6 @@ switch ($op) {
         break;
 }
 
-$xoopsTpl->display("db:xmarticle_admin_category.tpl");
+$xoopsTpl->display('db:xmarticle_admin_category.tpl');
 
 require __DIR__ . '/admin_footer.php';

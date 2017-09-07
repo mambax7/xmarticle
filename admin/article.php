@@ -84,9 +84,9 @@ switch ($op) {
         if ($article_status != 10){
 			$criteria->add(new Criteria('article_status', $article_status));
 		}    
-        $articleHandler->table_link = $articleHandler->db->prefix("xmarticle_category");
-        $articleHandler->field_link = "category_id";
-        $articleHandler->field_object = "article_cid";
+        $articleHandler->table_link = $articleHandler->db->prefix('xmarticle_category');
+        $articleHandler->field_link = 'category_id';
+        $articleHandler->field_object = 'article_cid';
         $article_arr = $articleHandler->getByLink($criteria);
         $article_count = $articleHandler->getCount($criteria);
         $xoopsTpl->assign('article_count', $article_count);
@@ -248,6 +248,6 @@ switch ($op) {
         break;
 }
 
-$xoopsTpl->display("db:xmarticle_admin_article.tpl");
+$xoopsTpl->display('db:xmarticle_admin_article.tpl');
 
 require __DIR__ . '/admin_footer.php';

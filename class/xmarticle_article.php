@@ -158,7 +158,7 @@ class xmarticle_article extends XoopsObject
         foreach ($image_array_img as $image_img) {
             $imageselect_img->addOption("$image_img", $image_img);
         }
-        $imageselect_img->setExtra("onchange='showImgSelected(\"image_img2\", \"article_logo\", \"" . $uploadirectory . "\", \"\", \"" . XOOPS_URL . "\")'");
+        $imageselect_img->setExtra("onchange='showImgSelected(\"image_img2\", \"article_logo\", \"" . $uploadirectory . '", "", "' . XOOPS_URL . "\")'");
         $imgtray_img->addElement($imageselect_img, false);
         $imgtray_img->addElement(new XoopsFormLabel('', "<br><img src='" . XOOPS_URL . '/' . $uploadirectory . '/' . $blank_img . "' name='image_img2' id='image_img2' alt=''>"));
         $fileseltray_img = new XoopsFormElementTray('<br>', '<br><br>');

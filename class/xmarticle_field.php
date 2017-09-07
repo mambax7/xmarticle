@@ -135,11 +135,11 @@ class xmarticle_field extends XoopsObject
                         $i++;
                     }
                 }
-                $option_text = "<table  cellspacing='1'><tr><td class='width20'>" . _MA_XMARTICLE_FIELD_KEY . "</td><td class='width40'>" . _MA_XMARTICLE_FIELD_VALUE . "</td><td>" . _MA_XMARTICLE_FIELD_DEFAULT . "</td>";
+                $option_text = "<table  cellspacing='1'><tr><td class='width20'>" . _MA_XMARTICLE_FIELD_KEY . "</td><td class='width40'>" . _MA_XMARTICLE_FIELD_VALUE . '</td><td>' . _MA_XMARTICLE_FIELD_DEFAULT . '</td>';
                 if (!$this->isNew()) {
-                    $option_text .= "<td>" . _MA_XMARTICLE_FIELD_REMOVE . "</td>";
+                    $option_text .= '<td>' . _MA_XMARTICLE_FIELD_REMOVE . '</td>';
                 }
-                $option_text .= "</tr>";
+                $option_text .= '</tr>';
                 for ($i = 0; $i < ($count_options + 10); ++$i) {
                     if ($i >= $count_options) {
                         $key   = '';
@@ -157,17 +157,17 @@ class xmarticle_field extends XoopsObject
                                 $checked = 'checked';
                             }
                         }
-                        $option_text .= "<td><INPUT type= 'checkbox' name='field_default[]' value='{$i}' " . $checked . "></td>";
+                        $option_text .= "<td><INPUT type= 'checkbox' name='field_default[]' value='{$i}' " . $checked . '></td>';
                     } else {
                         $checked = '';
                         if ($this->getVar('field_default') == $key && $this->getVar('field_default') != '') {
                             $checked = 'checked';
                         }
-                        $option_text .= "<td><INPUT type= 'radio' name='field_default' value='{$i}' " . $checked . "></td>";
+                        $option_text .= "<td><INPUT type= 'radio' name='field_default' value='{$i}' " . $checked . '></td>';
                     }
                     if (!$this->isNew()) {
                         if ($key == '') {
-                            $option_text .= "<td>&nbsp;</td>";
+                            $option_text .= '<td>&nbsp;</td>';
                         } else {
                             $option_text .= "<td><INPUT type= 'checkbox' name='removeOptions[]' value='{$key}'></td>";
                         }
@@ -176,8 +176,8 @@ class xmarticle_field extends XoopsObject
                         $option_text .= "</tr><tr height='3px'><td colspan='3'> </td></tr>";
                     }
                 }
-                $option_text .= "</table>";
-                $option_text .= "<label><input type='checkbox' name='addmoreoptions' value='True'>" . _MA_XMARTICLE_FIELD_ADDMOREOPTIONS . "</label>";
+                $option_text .= '</table>';
+                $option_text .= "<label><input type='checkbox' name='addmoreoptions' value='True'>" . _MA_XMARTICLE_FIELD_ADDMOREOPTIONS . '</label>';
                 $form->addElement(new XoopsFormLabel(_MA_XMARTICLE_FIELD_ADDOPTION, $option_text), true);
                 // sort
                 $sort     = new XoopsFormSelect(_MA_XMARTICLE_FIELD_SORT, 'field_sort', $this->getVar('field_sort'));

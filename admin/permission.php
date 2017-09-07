@@ -82,6 +82,6 @@ foreach ($global_perms_array as $perm_id => $permissionName) {
 }
 $xoopsTpl->assign('form', $permissionsForm->render());
 
-$xoopsTpl->display("db:xmarticle_admin_permission.tpl");
+$xoopsTpl->display('db:xmarticle_admin_permission.tpl');
 
 require __DIR__ . '/admin_footer.php';

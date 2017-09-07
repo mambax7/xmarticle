@@ -171,6 +171,6 @@ switch ($op) {
         break;
 }
 
-$xoopsTpl->display("db:xmarticle_admin_field.tpl");
+$xoopsTpl->display('db:xmarticle_admin_field.tpl');
 
 require __DIR__ . '/admin_footer.php';

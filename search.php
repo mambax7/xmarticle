@@ -69,7 +69,7 @@ $field_cat->addOption(0, _ALL);
 foreach (array_keys($category_arr) as $i) {
     $field_cat->addOption($category_arr[$i]->getVar('category_id'), $category_arr[$i]->getVar('category_name'));
 }
-$field_cat->setExtra("onchange=\"location='search.php?s_name=" . $s_name . "&s_reference=" . $s_reference . "&s_cat='+this.options[this.selectedIndex].value\"");
+$field_cat->setExtra("onchange=\"location='search.php?s_name=" . $s_name . '&s_reference=' . $s_reference . "&s_cat='+this.options[this.selectedIndex].value\"");
 $form->addElement($field_cat);
 
 //fields
@@ -304,9 +304,9 @@ if ($search != '') {
         $criteria->add(new Criteria('article_cid', $s_cat));
     }
     $criteria->add(new Criteria('article_status', 1));
-    $articleHandler->table_link   = $articleHandler->db->prefix("xmarticle_category");
-    $articleHandler->field_link   = "category_id";
-    $articleHandler->field_object = "article_cid";
+    $articleHandler->table_link   = $articleHandler->db->prefix('xmarticle_category');
+    $articleHandler->field_link   = 'category_id';
+    $articleHandler->field_object = 'article_cid';
     $article_arr                  = $articleHandler->getByLink($criteria);
     $article_count                = $articleHandler->getCount($criteria);
     if ($article_count > 0) {

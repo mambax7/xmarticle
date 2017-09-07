@@ -194,7 +194,7 @@ class xmarticle_category extends XoopsObject
         foreach ($image_array_img as $image_img) {
             $imageselect_img->addOption("$image_img", $image_img);
         }
-        $imageselect_img->setExtra("onchange='showImgSelected(\"image_img2\", \"category_logo\", \"" . $uploadirectory . "\", \"\", \"" . XOOPS_URL . "\")'");
+        $imageselect_img->setExtra("onchange='showImgSelected(\"image_img2\", \"category_logo\", \"" . $uploadirectory . '", "", "' . XOOPS_URL . "\")'");
         $imgtray_img->addElement($imageselect_img, false);
         $imgtray_img->addElement(new XoopsFormLabel('', "<br><img src='" . XOOPS_URL . '/' . $uploadirectory . '/' . $blank_img . "' name='image_img2' id='image_img2' alt=''>"));
         $fileseltray_img = new XoopsFormElementTray('<br>', '<br><br>');
@@ -230,17 +230,17 @@ class xmarticle_category extends XoopsObject
         foreach (array_keys($field_arr) as $i) {
             $sel_option .= '<option value="' . $field_arr[$i]->getVar('field_id') . '">' . $field_arr[$i]->getVar('field_name') . '</option>';
         }
-        $field_text = "<table  cellspacing='1'><tr><td width='50%'>" . _MA_XMARTICLE_CATEGORY_FIELD . "</td><td width='50%'>" . _MA_XMARTICLE_CATEGORY_FIELD . "</td></tr>";
+        $field_text = "<table  cellspacing='1'><tr><td width='50%'>" . _MA_XMARTICLE_CATEGORY_FIELD . "</td><td width='50%'>" . _MA_XMARTICLE_CATEGORY_FIELD . '</td></tr>';
         $sel_id     = 0;
         for ($i = 0; $i < 5; ++$i) {
-            $field_text .= "<tr><td><select class='form-control' name='addField[{$sel_id}]' id='addField[{$sel_id}]'>" . $sel_option . "</select></td>";
+            $field_text .= "<tr><td><select class='form-control' name='addField[{$sel_id}]' id='addField[{$sel_id}]'>" . $sel_option . '</select></td>';
             $sel_id++;
-            $field_text .= "<td><select class='form-control' name='addField[{$sel_id}]' id='addField[{$sel_id}]'>" . $sel_option . "</select><td></tr>";
+            $field_text .= "<td><select class='form-control' name='addField[{$sel_id}]' id='addField[{$sel_id}]'>" . $sel_option . '</select><td></tr>';
             $sel_id++;
             $field_text .= "<tr height='3px'><td colspan='2'></td></tr>";
         }
-        $field_text .= "</table>";
-        $field_text .= "<label><input type='checkbox' name='addmorefields' value='True'>" . _MA_XMARTICLE_FIELD_ADDMOREFIELDS . "</label>";
+        $field_text .= '</table>';
+        $field_text .= "<label><input type='checkbox' name='addmorefields' value='True'>" . _MA_XMARTICLE_FIELD_ADDMOREFIELDS . '</label>';
         $form->addElement(new XoopsFormLabel(_MA_XMARTICLE_FIELD_ADDFIELD, $field_text), true);
 
         // status
