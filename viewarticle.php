@@ -28,28 +28,28 @@ $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname'
 $category_id = Request::getInt('category_id', 0);
 $article_id  = Request::getInt('article_id', 0);
 
-if ($category_id == 0) {
+if (0 == $category_id) {
     redirect_header('index.php', 2, _MA_XMARTICLE_ERROR_NOCATEGORY);
 }
 // permission to view
 $permHelper->checkPermissionRedirect('xmarticle_view', $category_id, 'index.php', 2, _NOPERM);
 
-if ($article_id == 0) {
+if (0 == $article_id) {
     redirect_header('index.php', 2, _MA_XMARTICLE_ERROR_NOARTICLE);
 }
 
 $category = $categoryHandler->get($category_id);
 $article  = $articleHandler->get($article_id);
 
-if (count($category) == 0) {
+if (0 == count($category)) {
     redirect_header('index.php', 2, _MA_XMARTICLE_ERROR_NOCATEGORY);
 }
 
-if ($category->getVar('category_status') == 0 || $article->getVar('article_status') == 0) {
+if (0 == $category->getVar('category_status') || 0 == $article->getVar('article_status')) {
     redirect_header('index.php', 2, _MA_XMARTICLE_ERROR_NACTIVE);
 }
 
-if (count($article_id) == 0) {
+if (0 == count($article_id)) {
     redirect_header('index.php', 2, _MA_XMARTICLE_ERROR_NOARTICLE);
 }
 // Category
@@ -63,7 +63,7 @@ $xoopsTpl->assign('name', $article->getVar('article_name'));
 $xoopsTpl->assign('description', $article->getVar('article_description'));
 $xoopsTpl->assign('reference', $article->getVar('article_reference'));
 $xoopsTpl->assign('date', formatTimestamp($article->getVar('article_date'), 's'));
-if ($article->getVar('article_mdate') != 0) {
+if (0 != $article->getVar('article_mdate')) {
     $xoopsTpl->assign('mdate', formatTimestamp($article->getVar('article_mdate'), 's'));
 }
 $xoopsTpl->assign('author', XoopsUser::getUnameFromId($article->getVar('article_userid')));
@@ -98,7 +98,7 @@ if ($field_count > 0) {
     }
 }
 //xmdoc
-if (xoops_isActiveModule('xmdoc') && $helper->getConfig('general_xmdoc', 0) == 1) {
+if (xoops_isActiveModule('xmdoc') && 1 == $helper->getConfig('general_xmdoc', 0)) {
     xoops_load('utility', 'xmdoc');
     XmdocUtility::renderDocuments($xoopsTpl, $xoTheme, 'xmarticle', $article_id);
 } else {

@@ -87,7 +87,7 @@ switch ($op) {
         $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());        
         // Form
         $category_id = Request::getInt('category_id', 0);
-        if ($category_id == 0) {
+        if (0 == $category_id) {
             $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOCATEGORY);
         } else {
             $obj = $categoryHandler->get($category_id);
@@ -102,13 +102,13 @@ switch ($op) {
             redirect_header('category.php', 3, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         $category_id = Request::getInt('category_id', 0);
-        if ($category_id == 0) {
+        if (0 == $category_id) {
             $obj = $categoryHandler->create();            
         } else {
             $obj = $categoryHandler->get($category_id);
         }
         $error_message = $obj->saveCategory($categoryHandler, 'category.php');
-        if ($error_message != ''){
+        if ('' != $error_message){
             $xoopsTpl->assign('error_message', $error_message);
             $form = $obj->getForm();
             $xoopsTpl->assign('form', $form->render());
@@ -119,23 +119,23 @@ switch ($op) {
     // del
     case 'del':    
         $category_id = Request::getInt('category_id', 0);
-        if ($category_id == 0) {
+        if (0 == $category_id) {
             $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOCATEGORY);
         } else {
             $surdel = Request::getBool('surdel', false);
             $obj  = $categoryHandler->get($category_id);
-            if ($surdel === true) {
+            if (true === $surdel) {
                 if (!$GLOBALS['xoopsSecurity']->check()) {
                     redirect_header('category.php', 3, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
                 }
                 if ($categoryHandler->delete($obj)) {
                     //Del logo
-                    if ($obj->getVar('category_logo') != 'blank.gif') {
+                    if ('blank.gif' != $obj->getVar('category_logo')) {
                         // Test if the image is used
                         $criteria = new CriteriaCompo();
                         $criteria->add(new Criteria('category_logo', $obj->getVar('category_logo')));
                         $category_count = $categoryHandler->getCount($criteria);
-                        if ($category_count == 0){
+                        if (0 == $category_count){
                         $urlfile = $path_logo_category . $obj->getVar('category_logo');
                         if (is_file($urlfile)) {
                             chmod($urlfile, 0777);

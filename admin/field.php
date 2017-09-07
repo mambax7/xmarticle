@@ -87,7 +87,7 @@ switch ($op) {
         $moduleAdmin->addItemButton(_MA_XMARTICLE_FIELD_LIST, 'field.php', 'list');
         $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());
         $field_type = Request::getString('field_type', '');
-        if ($field_type == '') {
+        if ('' == $field_type) {
             $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOFIELDTYPE);
         } else {
             $obj  = $fieldHandler->create();
@@ -103,7 +103,7 @@ switch ($op) {
         $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());
         // Form
         $field_id = Request::getInt('field_id', 0);
-        if ($field_id == 0) {
+        if (0 == $field_id) {
             $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOFIELD);
         } else {
             $obj  = $fieldHandler->get($field_id);
@@ -118,13 +118,13 @@ switch ($op) {
             redirect_header('field.php', 3, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         $field_id = Request::getInt('field_id', 0);
-        if ($field_id == 0) {
+        if (0 == $field_id) {
             $obj = $fieldHandler->create();
         } else {
             $obj = $fieldHandler->get($field_id);
         }
         $error_message = $obj->saveField($fieldHandler, 'field.php');
-        if ($error_message != '') {
+        if ('' != $error_message) {
             $xoopsTpl->assign('error_message', $error_message);
             $form = $obj->getForm();
             $xoopsTpl->assign('form', $form->render());
@@ -135,12 +135,12 @@ switch ($op) {
     // del
     case 'del':
         $field_id = Request::getInt('field_id', 0);
-        if ($field_id == 0) {
+        if (0 == $field_id) {
             $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOFIELD);
         } else {
             $surdel = Request::getBool('surdel', false);
             $obj    = $fieldHandler->get($field_id);
-            if ($surdel === true) {
+            if (true === $surdel) {
                 if (!$GLOBALS['xoopsSecurity']->check()) {
                     redirect_header('field.php', 3, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
                 }

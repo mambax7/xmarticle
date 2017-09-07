@@ -59,7 +59,7 @@ if ($category_count > 0 && !empty($viewPermissionCat)) {
         $category_img             = $category_arr[$i]->getVar('category_logo') ?: 'blank.gif';
         $category['logo']         = $url_logo_category . $category_img;
         $xoopsTpl->append_by_ref('categories', $category);
-        if ($keywords == '') {
+        if ('' == $keywords) {
             $keywords = $category_arr[$i]->getVar('category_name');
         } else {
             $keywords = $keywords . ',' . $category_arr[$i]->getVar('category_name');

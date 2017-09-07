@@ -27,7 +27,7 @@ $xoTheme->addStylesheet( XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname
 
 $category_id = Request::getInt('category_id', 0);
 
-if ($category_id == 0) {
+if (0 == $category_id) {
     redirect_header('index.php', 2, _MA_XMARTICLE_ERROR_NOCATEGORY);
 }
 
@@ -36,11 +36,11 @@ $permHelper->checkPermissionRedirect('xmarticle_view', $category_id, 'index.php'
 
 $category = $categoryHandler->get($category_id);
 
-if (count($category) == 0) {
+if (0 == count($category)) {
     redirect_header('index.php', 2, _MA_XMARTICLE_ERROR_NOCATEGORY);
 }
 
-if ($category->getVar('category_status') == 0) {
+if (0 == $category->getVar('category_status')) {
     redirect_header('index.php', 2, _MA_XMARTICLE_ERROR_NACTIVE);
 }
 // Get start pager

@@ -45,7 +45,7 @@ class XmarticleUtility
     public static function delFilddataArticle($article_id = 0)
     {
         include __DIR__ . '/../include/common.php';
-        if ($article_id == 0) {
+        if (0 == $article_id) {
             return false;
             exit();
         }
@@ -74,10 +74,10 @@ class XmarticleUtility
 
     public static function saveFielddata($field_type = '', $fielddata_fid = 0, $fielddata_aid = 0, $fielddata_value = '', $action = false)
     {
-        if ($action === false) {
+        if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
-        if ($fielddata_fid == 0 || $fielddata_aid == 0 || $field_type == '') {
+        if (0 == $fielddata_fid || 0 == $fielddata_aid || '' == $field_type) {
             redirect_header($action, 2, _MA_XMARTICLE_ERROR);
         }
         include __DIR__ . '/../include/common.php';
@@ -110,14 +110,14 @@ class XmarticleUtility
         $criteria->add(new Criteria('fielddata_fid', $fielddata_fid));
         $criteria->add(new Criteria('fielddata_aid', $fielddata_aid));
         $error_message = '';
-        if ($field_type == 'select_multi' || $field_type == 'checkbox') {
+        if ('select_multi' == $field_type || 'checkbox' == $field_type) {
             $fielddataHandler->deleteAll($criteria);
             foreach (array_keys($fielddata_value) as $i) {
                 $obj = $fielddataHandler->create();
                 $obj->setVar('fielddata_fid', $fielddata_fid);
                 $obj->setVar('fielddata_aid', $fielddata_aid);
                 $obj->setVar($fieldname_bdd, $fielddata_value[$i]);
-                if ($error_message == '') {
+                if ('' == $error_message) {
                     if (!$fielddataHandler->insert($obj)) {
                         $error_message = $obj->getHtmlErrors();
                     }
@@ -125,7 +125,7 @@ class XmarticleUtility
             }
         } else {
             $fielddata_arr = $fielddataHandler->getall($criteria);
-            if (count($fielddata_arr) == 0) {
+            if (0 == count($fielddata_arr)) {
                 $obj = $fielddataHandler->create();
             } else {
                 foreach (array_keys($fielddata_arr) as $i) {
@@ -135,7 +135,7 @@ class XmarticleUtility
             $obj->setVar('fielddata_fid', $fielddata_fid);
             $obj->setVar('fielddata_aid', $fielddata_aid);
             $obj->setVar($fieldname_bdd, $fielddata_value);
-            if ($error_message == '') {
+            if ('' == $error_message) {
                 if (!$fielddataHandler->insert($obj)) {
                     $error_message = $obj->getHtmlErrors();
                 }
@@ -154,21 +154,21 @@ class XmarticleUtility
         $fielddata_arr = $fielddataHandler->getall($criteria);
         $value         = '';
         foreach (array_keys($fielddata_arr) as $i) {
-            if ($fielddata_arr[$i]->getVar('fielddata_value1') != '') {
+            if ('' != $fielddata_arr[$i]->getVar('fielddata_value1')) {
                 $value = $fielddata_arr[$i]->getVar('fielddata_value1');
             }
-            if ($fielddata_arr[$i]->getVar('fielddata_value2') != '') {
+            if ('' != $fielddata_arr[$i]->getVar('fielddata_value2')) {
                 $value = $fielddata_arr[$i]->getVar('fielddata_value2', 'e');
             }
-            if ($fielddata_arr[$i]->getVar('fielddata_value3') != '') {
-                if ($value == '') {
+            if ('' != $fielddata_arr[$i]->getVar('fielddata_value3')) {
+                if ('' == $value) {
                     $seperator = '';
                 } else {
                     $seperator = ',';
                 }
                 $value .= $seperator . $fielddata_arr[$i]->getVar('fielddata_value3');
             }
-            if ($fielddata_arr[$i]->getVar('fielddata_value4') != '') {
+            if ('' != $fielddata_arr[$i]->getVar('fielddata_value4')) {
                 $value = $fielddata_arr[$i]->getVar('fielddata_value4');
             }
         }
@@ -179,7 +179,7 @@ class XmarticleUtility
     public static function getArticleFields($fields = [], $fielddata_aid = 0)
     {
         $values = [];
-        if (count($fields) != 0) {
+        if (0 != count($fields)) {
             include __DIR__ . '/../include/common.php';
             // field
             $criteria = new CriteriaCompo();
@@ -204,7 +204,7 @@ class XmarticleUtility
                             break;
 
                         case 'radio_yn':
-                            if ($fielddata_arr[$j]->getVar('fielddata_value1') == 0) {
+                            if (0 == $fielddata_arr[$j]->getVar('fielddata_value1')) {
                                 $fielddata_value = _NO;
                             } else {
                                 $fielddata_value = _YES;
@@ -223,7 +223,7 @@ class XmarticleUtility
 
                         case 'select_multi':
                         case 'checkbox':
-                            if ($fielddata_value == '') {
+                            if ('' == $fielddata_value) {
                                 $seperator = '';
                             } else {
                                 $seperator = $helper->getConfig('general_separator', '-');
@@ -276,12 +276,12 @@ class XmarticleUtility
 
     public static function cloneArticle($article_id, $action = false)
     {
-        if ($action === false) {
+        if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         include __DIR__ . '/../include/common.php';
         $article = $articleHandler->get($article_id);
-        if (count($article) == 0) {
+        if (0 == count($article)) {
             redirect_header($action, 2, _MA_XMARTICLE_ERROR_NOARTICLE);
         }
         $newobj  = $articleHandler->create();

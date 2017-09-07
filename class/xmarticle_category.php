@@ -58,18 +58,18 @@ class xmarticle_category extends XoopsObject
      */
     public function saveCategory($categoryHandler, $action = false)
     {
-        if ($action === false) {
+        if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         $error_message = '';
         // test error
-        if ((int)$_REQUEST['category_weight'] == 0 && $_REQUEST['category_weight'] != '0') {
+        if (0 == (int)$_REQUEST['category_weight'] && '0' != $_REQUEST['category_weight']) {
             $error_message .= _MA_XMARTICLE_ERROR_WEIGHT . '<br>';
             $this->setVar('category_weight', 0);
         }
         //logo
         $uploadirectory = '/xmarticle/images/category';
-        if ($_FILES['category_logo']['error'] != UPLOAD_ERR_NO_FILE) {
+        if (UPLOAD_ERR_NO_FILE != $_FILES['category_logo']['error']) {
             include_once XOOPS_ROOT_PATH . '/class/uploader.php';
             $uploader_category_img = new XoopsMediaUploader(XOOPS_UPLOAD_PATH . $uploadirectory, ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'], $upload_size, null, null);
             if ($uploader_category_img->fetchMedia('category_logo')) {
@@ -102,18 +102,18 @@ class xmarticle_category extends XoopsObject
         if (!empty($_REQUEST['addField'])) {
             $i = 0;
             foreach ($_REQUEST['addField'] as $field) {
-                if ($field == '') {
+                if ('' == $field) {
                     continue;
                 }
                 $fields[$field] = $field;
             }
         }
         $this->setVar('category_fields', $fields);
-        if ($error_message == '') {
+        if ('' == $error_message) {
             $this->setVar('category_weight', Xmf\Request::getInt('category_weight', 0));
             if ($categoryHandler->insert($this)) {
                 // permissions
-                if ($this->get_new_enreg() == 0) {
+                if (0 == $this->get_new_enreg()) {
                     $perm_id = $this->getVar('category_id');
                 } else {
                     $perm_id = $this->get_new_enreg();
@@ -125,7 +125,7 @@ class xmarticle_category extends XoopsObject
                 // permission submit
                 $groups_submit = \Xmf\Request::getArray('xmarticle_submit_perms', [], 'POST');
                 $permHelper->savePermissionForItem('xmarticle_submit', $perm_id, $groups_submit);
-                if ((Xmf\Request::getBool('addmorefields', false)) === true) {
+                if (true === (Xmf\Request::getBool('addmorefields', false))) {
                     redirect_header($action . '?op=edit&amp;category_id=' . $this->getVar('category_id'), 2, _MA_XMARTICLE_REDIRECT_SAVE);
                 } else {
                     redirect_header($action, 2, _MA_XMARTICLE_REDIRECT_SAVE);
@@ -146,7 +146,7 @@ class xmarticle_category extends XoopsObject
     {
         $upload_size = 500000;
         $helper      = \Xmf\Module\Helper::getHelper('xmarticle');
-        if ($action === false) {
+        if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';

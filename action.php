@@ -27,7 +27,7 @@ $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname'
 
 $op = Request::getCmd('op', '');
 
-if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'loadarticle' || $op == 'save') {
+if ('clone' == $op || 'edit' == $op || 'del' == $op || 'add' == $op || 'loadarticle' == $op || 'save' == $op) {
     switch ($op) {
         // Add
         case 'add':
@@ -44,7 +44,7 @@ if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'l
             // permission to submitt
             $permHelper->checkPermissionRedirect('xmarticle_other', 4, 'index.php', 2, _NOPERM);
             $article_cid = Request::getInt('article_cid', 0);
-            if ($article_cid == 0) {
+            if (0 == $article_cid) {
                 $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOCATEGORY);
             } else {
                 $obj  = $articleHandler->create();
@@ -57,7 +57,7 @@ if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'l
         case 'edit':
             // Form
             $article_id = Request::getInt('article_id', 0);
-            if ($article_id == 0) {
+            if (0 == $article_id) {
                 $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOARTICLE);
             } else {
                 $obj  = $articleHandler->get($article_id);
@@ -70,7 +70,7 @@ if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'l
         // Clone
         case 'clone':
             $article_id = Request::getInt('article_id', 0);
-            if ($article_id == 0) {
+            if (0 == $article_id) {
                 $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOARTICLE);
             } else {
                 $cloneobj = XmarticleUtility::cloneArticle($article_id);
@@ -87,13 +87,13 @@ if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'l
                 redirect_header('index.php', 3, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
             }
             $article_id = Request::getInt('article_id', 0);
-            if ($article_id == 0) {
+            if (0 == $article_id) {
                 $obj = $articleHandler->create();
             } else {
                 $obj = $articleHandler->get($article_id);
             }
             $error_message = $obj->savearticle($articleHandler, 'viewarticle.php');
-            if ($error_message != '') {
+            if ('' != $error_message) {
                 $xoopsTpl->assign('error_message', $error_message);
                 $form = $obj->getForm();
                 $xoopsTpl->assign('form', $form->render());
@@ -105,18 +105,18 @@ if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'l
             // permission to del
             $permHelper->checkPermissionRedirect('xmarticle_other', 16, 'index.php', 2, _NOPERM);
             $article_id = Request::getInt('article_id', 0);
-            if ($article_id == 0) {
+            if (0 == $article_id) {
                 $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOARTICLE);
             } else {
                 $surdel = Request::getBool('surdel', false);
                 $obj    = $articleHandler->get($article_id);
-                if ($surdel === true) {
+                if (true === $surdel) {
                     if (!$GLOBALS['xoopsSecurity']->check()) {
                         redirect_header('index.php', 3, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
                     }
                     if ($articleHandler->delete($obj)) {
                         //Del logo
-                        if ($obj->getVar('article_logo') != 'blank.gif') {
+                        if ('blank.gif' != $obj->getVar('article_logo')) {
                             $urlfile = $path_logo_article . $obj->getVar('article_logo');
                             if (is_file($urlfile)) {
                                 chmod($urlfile, 0777);

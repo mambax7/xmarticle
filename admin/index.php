@@ -27,7 +27,7 @@ $moduleAdmin->addConfigModuleVersion('system', 212);
 // xmdoc
 if (is_dir(XOOPS_ROOT_PATH . '/modules/xmdoc')) {
     $moduleAdmin->addConfigModuleVersion('xmdoc', 10);
-} elseif ($helper->getConfig('general_xmdoc', 0) == 0) {
+} elseif (0 == $helper->getConfig('general_xmdoc', 0)) {
     $moduleAdmin->addConfigWarning(_MA_XMARTICLE_INDEXCONFIG_XMDOC_WARNING);
 } else {
     $moduleAdmin->addConfigError(_MA_XMARTICLE_INDEXCONFIG_XMDOC_ERROR);

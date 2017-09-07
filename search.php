@@ -32,7 +32,7 @@ $permHelper->checkPermissionRedirect('xmarticle_other', 32, 'index.php', 2, _NOP
 // Get values
 $search = Request::getString('search', '');
 $reset  = Request::getString('reset', '');
-if ($reset == '') {
+if ('' == $reset) {
     $s_name      = Request::getString('s_name', '');
     $s_reference = Request::getString('s_reference', '');
     $s_cat       = Request::getInt('s_cat', 0);
@@ -74,7 +74,7 @@ $form->addElement($field_cat);
 
 //fields
 $fielddata_aid_arr = [];
-if ($s_cat != 0) {
+if (0 != $s_cat) {
     $category = $categoryHandler->get($s_cat);
     // field
     $criteria = new CriteriaCompo();
@@ -94,7 +94,7 @@ if ($s_cat != 0) {
         $value_fnex = '';
         if (isset($_POST['f_' . $i])) {
             $value = $_POST['f_' . $i];
-            if ($value != '' && $value != 999) {
+            if ('' != $value && 999 != $value) {
                 $criteria = new CriteriaCompo();
                 switch ($field_arr[$i]->getVar('field_type')) {
                     case 'vs_text':
@@ -107,10 +107,10 @@ if ($s_cat != 0) {
 
                     case 'select':
                         $criteria->add(new Criteria('fielddata_fid', $i));
-                        if ($value != '') {
+                        if ('' != $value) {
                             $value_bdd = '';
                             foreach (array_keys($value) as $k) {
-                                if ($value_bdd == '') {
+                                if ('' == $value_bdd) {
                                     $seperator = '';
                                 } else {
                                     $seperator = ', ';
@@ -137,10 +137,10 @@ if ($s_cat != 0) {
                     case 'select_multi':
                     case 'checkbox':
                         $criteria->add(new Criteria('fielddata_fid', $i));
-                        if ($value != '') {
+                        if ('' != $value) {
                             $value_bdd = '';
                             foreach (array_keys($value) as $k) {
-                                if ($value_bdd == '') {
+                                if ('' == $value_bdd) {
                                     $seperator = '';
                                 } else {
                                     $seperator = ', ';
@@ -155,34 +155,34 @@ if ($s_cat != 0) {
                     case 'number':
                         if (isset($_POST['fnex_' . $i])) {
                             $value_fnex = $_POST['fnex_' . $i];
-                            if ($value_fnex != '') {
+                            if ('' != $value_fnex) {
                                 $criteria->add(new Criteria('fielddata_fid', $i));
                                 $criteria->add(new Criteria('fielddata_value4', $value_fnex));
                             }
                         }
-                        if (isset($_POST['fnmi_' . $i]) && $value_fnex == '') {
+                        if (isset($_POST['fnmi_' . $i]) && '' == $value_fnex) {
                             $value_fnmi = $_POST['fnmi_' . $i];
                         } else {
                             $value_fnmi = '';
                         }
-                        if (isset($_POST['fnma_' . $i]) && $value_fnex == '') {
+                        if (isset($_POST['fnma_' . $i]) && '' == $value_fnex) {
                             $value_fnma = $_POST['fnma_' . $i];
                         } else {
                             $value_fnma = '';
                         }
 
-                        if ($value_fnma != '' || $value_fnmi != '') {
+                        if ('' != $value_fnma || '' != $value_fnmi) {
                             $criteria->add(new Criteria('fielddata_fid', $i));
                         }
-                        if ($value_fnmi != '') {
+                        if ('' != $value_fnmi) {
                             $criteria->add(new Criteria('fielddata_value4', $value_fnmi, '>='));
                         }
-                        if ($value_fnma != '') {
+                        if ('' != $value_fnma) {
                             $criteria->add(new Criteria('fielddata_value4', $value_fnma, '<='));
                         }
                         break;
                 }
-                if ($result == true) {
+                if (true == $result) {
                     if (count($fielddata_aid_arr) > 0) {
                         $criteria->add(new Criteria('fielddata_aid', '(' . implode(',', $fielddata_aid_arr) . ')', 'IN'));
                         $fielddata_aid_arr = [];
@@ -190,7 +190,7 @@ if ($s_cat != 0) {
                     $fielddata_arr = $fielddataHandler->getall($criteria);
                     if (count($fielddata_arr) > 0) {
                         foreach (array_keys($fielddata_arr) as $j) {
-                            if ($value != '') {
+                            if ('' != $value) {
                                 $fielddata_aid_arr[] = $fielddata_arr[$j]->getVar('fielddata_aid');
                             }
                         }
@@ -235,7 +235,7 @@ if ($s_cat != 0) {
                 $form->addElement($select_multi_field, $required);
                 break;
             case 'radio_yn':
-                if ($value == '') {
+                if ('' == $value) {
                     $value = 999;
                 }
                 $radio_yn_field = new XoopsFormSelect($caption, $name, $value);
@@ -245,7 +245,7 @@ if ($s_cat != 0) {
                 $form->addElement($radio_yn_field, $required);
                 break;
             case 'radio':
-                if ($value == '') {
+                if ('' == $value) {
                     $value = 999;
                 }
                 $radio_field = new XoopsFormSelect($caption, $name, $value);
@@ -281,15 +281,15 @@ $form->addElement($button);
 
 $xoopsTpl->assign('form', $form->render());
 
-if ($search != '') {
+if ('' != $search) {
     $arguments = 's_cat=' . $s_cat . '&amp;';
     // Criteria
     $criteria = new CriteriaCompo();
-    if ($s_name != '') {
+    if ('' != $s_name) {
         $criteria->add(new Criteria('article_name', '%' . $s_name . '%', 'LIKE'));
         $arguments .= 's_name=' . $s_name . '&amp;';
     }
-    if ($s_reference != '') {
+    if ('' != $s_reference) {
         $criteria->add(new Criteria('article_reference', '%' . $s_reference . '%', 'LIKE'));
         $arguments .= 's_reference=' . $s_reference . '&amp;';
     }
@@ -300,7 +300,7 @@ if ($search != '') {
     $criteria->setOrder('ASC');
     //$criteria->setStart($start);
     //$criteria->setLimit($nb_limit);
-    if ($s_cat != 0) {
+    if (0 != $s_cat) {
         $criteria->add(new Criteria('article_cid', $s_cat));
     }
     $criteria->add(new Criteria('article_status', 1));
