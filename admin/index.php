@@ -36,7 +36,7 @@ $folder[] = $path_logo_category;
 $folder[] = $path_logo_article;
 foreach (array_keys( $folder) as $i) {
     $moduleAdmin->addConfigBoxLine($folder[$i], 'folder');
-    $moduleAdmin->addConfigBoxLine(array($folder[$i], '777'), 'chmod');
+    $moduleAdmin->addConfigBoxLine([$folder[$i], '777'], 'chmod');
 }
 $moduleAdmin->displayIndex();
 
