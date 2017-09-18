@@ -363,7 +363,7 @@ class xmarticle_article extends XoopsObject
         // permission Auto approve submitted article
         $permHelper = new \Xmf\Module\Helper\Permission();
         $permission = $permHelper->checkPermission('xmarticle_other', 8);
-        if (false == $permission){
+        if (false === $permission){
             $this->setVar('article_status', 2);
         } else {
             $this->setVar('article_status', Xmf\Request::getInt('article_status', 1));
