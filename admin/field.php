@@ -42,7 +42,7 @@ switch ($op) {
         $criteria->setOrder('ASC');
         $criteria->setStart($start);
         $criteria->setLimit($nb_limit);
-        $field_arr   = $fieldHandler->getall($criteria);
+        $field_arr   = $fieldHandler->getAll($criteria);
         $field_count = $fieldHandler->getCount($criteria);
         $xoopsTpl->assign('field_count', $field_count);
         $field_type_arr = XmarticleUtility::fieldTypes();

@@ -16,6 +16,9 @@
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author          Mage Gregory (AKA Mage)
  */
+
+require_once __DIR__ . '/preloads/autoloader.php';
+
 $modversion['dirname']     = basename(__DIR__);
 $modversion['name']        = ucfirst(basename(__DIR__));
 $modversion['version']     = '0.1';

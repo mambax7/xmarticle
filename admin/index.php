@@ -22,7 +22,7 @@ use Xmf\Module\Admin;
 require __DIR__ . '/admin_header.php';
 
 $moduleAdmin = Admin::getInstance();
-$moduleAdmin->displayNavigation('index.php');
+$moduleAdmin->displayNavigation(basename(__FILE__));
 $moduleAdmin->addConfigModuleVersion('system', 212);
 // xmdoc
 if (is_dir(XOOPS_ROOT_PATH . '/modules/xmdoc')) {
@@ -34,7 +34,7 @@ if (is_dir(XOOPS_ROOT_PATH . '/modules/xmdoc')) {
 }
 $folder[] = $path_logo_category;
 $folder[] = $path_logo_article;
-foreach (array_keys( $folder) as $i) {
+foreach (array_keys($folder) as $i) {
     $moduleAdmin->addConfigBoxLine($folder[$i], 'folder');
     $moduleAdmin->addConfigBoxLine([$folder[$i], '777'], 'chmod');
 }

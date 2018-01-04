@@ -17,7 +17,7 @@
  * @author          Mage Gregory (AKA Mage)
  */
 
-use Xmf\Module\Admin; 
+use Xmf\Module\Admin;
 use Xmf\Request;
 
 require __DIR__ . '/admin_header.php';
@@ -31,7 +31,7 @@ $tab_perm   = [1 => _MA_XMARTICLE_PERMISSION_VIEW, 2 => _MA_XMARTICLE_PERMISSION
 
 // Category
 $criteria = new CriteriaCompo();
-$category_arr = $categoryHandler->getall($criteria);
+$category_arr = $categoryHandler->getAll($criteria);
 if (count($category_arr) > 0) {
     $tab_perm = [1 => _MA_XMARTICLE_PERMISSION_VIEW, 2 => _MA_XMARTICLE_PERMISSION_SUBMIT, 3 => _MA_XMARTICLE_PERMISSION_OTHER];
 } else {
@@ -71,14 +71,14 @@ switch ($permission) {
             '4' => _MA_XMARTICLE_PERMISSION_OTHER_4 ,
             '8' => _MA_XMARTICLE_PERMISSION_OTHER_8,
             '16' => _MA_XMARTICLE_PERMISSION_OTHER_16,
-			'32' => _MA_XMARTICLE_PERMISSION_OTHER_32
+            '32' => _MA_XMARTICLE_PERMISSION_OTHER_32
         ];
         break;
 }
 
 $permissionsForm = new XoopsGroupPermForm($formTitle, $helper->getModule()->getVar('mid'), $permissionName, $permissionDescription, 'admin/permission.php?permission=' . $permission);
 foreach ($global_perms_array as $perm_id => $permissionName) {
-    $permissionsForm->addItem($perm_id , $permissionName) ;
+    $permissionsForm->addItem($perm_id, $permissionName) ;
 }
 $xoopsTpl->assign('form', $permissionsForm->render());
 

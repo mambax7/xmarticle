@@ -56,7 +56,7 @@ if (!empty($viewPermissionCat)) {
 } else {
     redirect_header('index.php', 3, _MA_XMARTICLE_ERROR_NOACESSCATEGORY);
 }
-$category_arr = $categoryHandler->getall($criteria);
+$category_arr = $categoryHandler->getAll($criteria);
 
 $form = new XoopsThemeForm(_MA_XMARTICLE_SEARCHFORM, 'form', 'search.php', 'post', true);
 // title
@@ -83,7 +83,7 @@ if (0 != $s_cat) {
     $criteria->add(new Criteria('field_id', '(' . implode(',', $category->getVar('category_fields')) . ')', 'IN'));
     $criteria->add(new Criteria('field_status', 0, '!='));
     $criteria->add(new Criteria('field_search', 0, '!='));
-    $field_arr = $fieldHandler->getall($criteria);
+    $field_arr = $fieldHandler->getAll($criteria);
     $result    = true;
     foreach (array_keys($field_arr) as $i) {
         $caption    = $field_arr[$i]->getVar('field_name') . '<br><span style="font-weight:normal;">' . $field_arr[$i]->getVar('field_description', 'show') . '</span>';
@@ -187,7 +187,7 @@ if (0 != $s_cat) {
                         $criteria->add(new Criteria('fielddata_aid', '(' . implode(',', $fielddata_aid_arr) . ')', 'IN'));
                         $fielddata_aid_arr = [];
                     }
-                    $fielddata_arr = $fielddataHandler->getall($criteria);
+                    $fielddata_arr = $fielddataHandler->getAll($criteria);
                     if (count($fielddata_arr) > 0) {
                         foreach (array_keys($fielddata_arr) as $j) {
                             if ('' != $value) {

@@ -33,7 +33,7 @@ switch ($op) {
         $xoTheme->addScript('modules/system/js/admin.js');
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_CATEGORY_ADD, 'category.php?op=add', 'add');
-        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());        
+        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());
         // Get start pager
         $start = Request::getInt('start', 0);
         // Criteria
@@ -42,7 +42,7 @@ switch ($op) {
         $criteria->setOrder('ASC');
         $criteria->setStart($start);
         $criteria->setLimit($nb_limit);
-        $category_arr = $categoryHandler->getall($criteria);
+        $category_arr = $categoryHandler->getAll($criteria);
         $category_count = $categoryHandler->getCount($criteria);
         $xoopsTpl->assign('category_count', $category_count);
         if ($category_count > 0) {
@@ -73,7 +73,7 @@ switch ($op) {
     case 'add':
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_CATEGORY_LIST, 'category.php', 'list');
-        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());        
+        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());
         // Form
         $obj  = $categoryHandler->create();
         $form = $obj->getForm();
@@ -84,7 +84,7 @@ switch ($op) {
     case 'edit':
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_CATEGORY_LIST, 'category.php', 'list');
-        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());        
+        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());
         // Form
         $category_id = Request::getInt('category_id', 0);
         if (0 == $category_id) {
@@ -92,7 +92,7 @@ switch ($op) {
         } else {
             $obj = $categoryHandler->get($category_id);
             $form = $obj->getForm();
-            $xoopsTpl->assign('form', $form->render()); 
+            $xoopsTpl->assign('form', $form->render());
         }
 
         break;
@@ -103,12 +103,12 @@ switch ($op) {
         }
         $category_id = Request::getInt('category_id', 0);
         if (0 == $category_id) {
-            $obj = $categoryHandler->create();            
+            $obj = $categoryHandler->create();
         } else {
             $obj = $categoryHandler->get($category_id);
         }
         $error_message = $obj->saveCategory($categoryHandler, 'category.php');
-        if ('' != $error_message){
+        if ('' != $error_message) {
             $xoopsTpl->assign('error_message', $error_message);
             $form = $obj->getForm();
             $xoopsTpl->assign('form', $form->render());
@@ -117,7 +117,7 @@ switch ($op) {
         break;
         
     // del
-    case 'del':    
+    case 'del':
         $category_id = Request::getInt('category_id', 0);
         if (0 == $category_id) {
             $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOCATEGORY);
@@ -135,11 +135,11 @@ switch ($op) {
                         $criteria = new CriteriaCompo();
                         $criteria->add(new Criteria('category_logo', $obj->getVar('category_logo')));
                         $category_count = $categoryHandler->getCount($criteria);
-                        if (0 == $category_count){
-                        $urlfile = $path_logo_category . $obj->getVar('category_logo');
-                        if (is_file($urlfile)) {
-                            chmod($urlfile, 0777);
-                            unlink($urlfile);
+                        if (0 == $category_count) {
+                            $urlfile = $path_logo_category . $obj->getVar('category_logo');
+                            if (is_file($urlfile)) {
+                                chmod($urlfile, 0777);
+                                unlink($urlfile);
                             }
                         }
                     }
@@ -151,10 +151,10 @@ switch ($op) {
                     $criteria = new CriteriaCompo();
                     $criteria->add(new Criteria('article_cid', $category_id));
                     $article_arr = $articleHandler->getall($criteria);
-                    if (count($article_arr) > 0){
+                    if (count($article_arr) > 0) {
                         foreach (array_keys($article_arr) as $i) {
                             // Del fielddata
-                             XmarticleUtility::delFilddataArticle($article_arr[$i]->getVar('article_id'));                            
+                            XmarticleUtility::delFilddataArticle($article_arr[$i]->getVar('article_id'));
                             // Del article
                             $objarticle = $articleHandler->get($article_arr[$i]->getVar('article_id'));
                             $articleHandler->delete($objarticle) or $objarticle->getHtmlErrors();

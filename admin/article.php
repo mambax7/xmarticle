@@ -30,47 +30,47 @@ switch ($op) {
     case 'list':
         // Define Stylesheet
         $xoTheme->addStylesheet(XOOPS_URL . '/modules/system/css/admin.css');
-		$xoTheme->addStylesheet( XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname', 'n') . '/assets/css/admin.css', null );
+        $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname', 'n') . '/assets/css/admin.css', null);
         $xoTheme->addScript('modules/system/js/admin.js');
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_ARTICLE_ADD, 'article.php?op=add', 'add');
         $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());
-		// Get start pager
+        // Get start pager
         $start = Request::getInt('start', 0);
-		$xoopsTpl->assign('start', $start);
+        $xoopsTpl->assign('start', $start);
         
         $xoopsTpl->assign('filter', true);
-		// Category
-		$article_cid = Request::getInt('article_cid', 0);
+        // Category
+        $article_cid = Request::getInt('article_cid', 0);
         $xoopsTpl->assign('article_cid', $article_cid);
-		$criteria = new CriteriaCompo();
-		$criteria->setSort('category_weight ASC, category_name');
-		$criteria->setOrder('ASC');
-		$category_arr = $categoryHandler->getall($criteria);		
-		if (count($category_arr) > 0) {
-			$article_cid_options = '<option value="0"' . (0 == $article_cid ? ' selected="selected"' : '') . '>' . _ALL . '</option>';
-			foreach (array_keys($category_arr) as $i) {
-				$article_cid_options .= '<option value="' . $i . '"' . ($article_cid == $i ? ' selected="selected"' : '') . '>' . $category_arr[$i]->getVar('category_name') . '</option>';
-			}
-			$xoopsTpl->assign('article_cid_options', $article_cid_options);
-		}
+        $criteria = new CriteriaCompo();
+        $criteria->setSort('category_weight ASC, category_name');
+        $criteria->setOrder('ASC');
+        $category_arr = $categoryHandler->getAll($criteria);
+        if (count($category_arr) > 0) {
+            $article_cid_options = '<option value="0"' . (0 == $article_cid ? ' selected="selected"' : '') . '>' . _ALL . '</option>';
+            foreach (array_keys($category_arr) as $i) {
+                $article_cid_options .= '<option value="' . $i . '"' . ($article_cid == $i ? ' selected="selected"' : '') . '>' . $category_arr[$i]->getVar('category_name') . '</option>';
+            }
+            $xoopsTpl->assign('article_cid_options', $article_cid_options);
+        }
         // Status
         $article_status = Request::getInt('article_status', 10);
         $xoopsTpl->assign('article_status', $article_status);
         $status_options         = [1 => _MA_XMARTICLE_STATUS_A, 0 => _MA_XMARTICLE_STATUS_NA, 2 => _MA_XMARTICLE_WFV];
-		$article_status_options = '<option value="10"' . (0 == $article_status ? ' selected="selected"' : '') . '>' . _ALL . '</option>';
+        $article_status_options = '<option value="10"' . (0 == $article_status ? ' selected="selected"' : '') . '>' . _ALL . '</option>';
         foreach (array_keys($status_options) as $i) {
             $article_status_options .= '<option value="' . $i . '"' . ($article_status == $i ? ' selected="selected"' : '') . '>' . $status_options[$i] . '</option>';
         }
         $xoopsTpl->assign('article_status_options', $article_status_options);
-		
-		// Waiting article
+        
+        // Waiting article
         $criteria = new CriteriaCompo();
-		$criteria->add(new Criteria('article_status', 2));
-		$Waiting_article = $articleHandler->getCount($criteria);
-		if ($Waiting_article > 0){
-			$xoopsTpl->assign('warning_message', sprintf(_MA_XMARTICLE_WAITING, $Waiting_article));
-		}		
+        $criteria->add(new Criteria('article_status', 2));
+        $Waiting_article = $articleHandler->getCount($criteria);
+        if ($Waiting_article > 0) {
+            $xoopsTpl->assign('warning_message', sprintf(_MA_XMARTICLE_WAITING, $Waiting_article));
+        }
         
         // Criteria
         $criteria = new CriteriaCompo();
@@ -78,12 +78,12 @@ switch ($op) {
         $criteria->setOrder('ASC');
         $criteria->setStart($start);
         $criteria->setLimit($nb_limit);
-		if (0 != $article_cid){
-			$criteria->add(new Criteria('article_cid', $article_cid));
-		}
-        if (10 != $article_status){
-			$criteria->add(new Criteria('article_status', $article_status));
-		}    
+        if (0 != $article_cid) {
+            $criteria->add(new Criteria('article_cid', $article_cid));
+        }
+        if (10 != $article_status) {
+            $criteria->add(new Criteria('article_status', $article_status));
+        }
         $articleHandler->table_link = $articleHandler->db->prefix('xmarticle_category');
         $articleHandler->field_link = 'category_id';
         $articleHandler->field_object = 'article_cid';
@@ -96,7 +96,7 @@ switch ($op) {
                 $article['id']              = $article_id;
                 $article['category']        = $article_arr[$i]->getVar('category_name');
                 $article['cat_reference']   = $article_arr[$i]->getVar('category_reference');
-				$article['cid']             = $article_arr[$i]->getVar('article_cid');
+                $article['cid']             = $article_arr[$i]->getVar('article_cid');
                 $article['name']            = $article_arr[$i]->getVar('article_name');
                 $article['reference']       = $article_arr[$i]->getVar('article_reference');
                 $article['description']     = \Xmf\Metagen::generateDescription($article_arr[$i]->getVar('article_description', 'show'), 30);
@@ -120,7 +120,7 @@ switch ($op) {
     case 'add':
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_ARTICLE_LIST, 'article.php', 'list');
-        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());        
+        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());
         // Form
         $obj  = $articleHandler->create();
         $form = $obj->getFormCategory('article.php');
@@ -131,7 +131,7 @@ switch ($op) {
     case 'loadarticle':
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_ARTICLE_LIST, 'article.php', 'list');
-        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());  
+        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());
         $article_cid = Request::getInt('article_cid', 0);
         if (0 == $article_cid) {
             $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOCATEGORY);
@@ -146,7 +146,7 @@ switch ($op) {
     case 'edit':
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_ARTICLE_LIST, 'article.php', 'list');
-        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());        
+        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());
         // Form
         $article_id = Request::getInt('article_id', 0);
         if (0 == $article_id) {
@@ -154,12 +154,12 @@ switch ($op) {
         } else {
             $obj = $articleHandler->get($article_id);
             $form = $obj->getForm();
-            $xoopsTpl->assign('form', $form->render()); 
+            $xoopsTpl->assign('form', $form->render());
         }
 
         break;
-	
-	// Clone
+    
+    // Clone
     case 'clone':
         $article_id = Request::getInt('article_id', 0);
         if (0 == $article_id) {
@@ -170,7 +170,7 @@ switch ($op) {
             $xoopsTpl->assign('form', $form->render());
         }
         break;
-		
+        
     // Save
     case 'save':
         if (!$GLOBALS['xoopsSecurity']->check()) {
@@ -183,7 +183,7 @@ switch ($op) {
             $obj = $articleHandler->get($article_id);
         }
         $error_message = $obj->savearticle($articleHandler, 'article.php');
-        if ('' != $error_message){
+        if ('' != $error_message) {
             $xoopsTpl->assign('error_message', $error_message);
             $form = $obj->getForm();
             $xoopsTpl->assign('form', $form->render());
@@ -192,7 +192,7 @@ switch ($op) {
         break;
         
     // del
-    case 'del':    
+    case 'del':
         $article_id = Request::getInt('article_id', 0);
         if (0 == $article_id) {
             $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOARTICLE);
@@ -220,10 +220,13 @@ switch ($op) {
                 }
             } else {
                 $article_img = $obj->getVar('article_logo') ?: 'blank.gif';
-                xoops_confirm(['surdel' => true, 'article_id' => $article_id, 'op' => 'del'], $_SERVER['REQUEST_URI'], 
+                xoops_confirm(
+                    ['surdel' => true, 'article_id' => $article_id, 'op' => 'del'],
+                    $_SERVER['REQUEST_URI'],
                                     sprintf(_MA_XMARTICLE_ARTICLE_SUREDEL, $obj->getVar('article_name')) . '<br>
-                                    <img src="' . $url_logo_article . $article_img . '" title="' . 
-                                    $obj->getVar('article_name') . '"><br>');
+                                    <img src="' . $url_logo_article . $article_img . '" title="' .
+                                    $obj->getVar('article_name') . '"><br>'
+                );
             }
         }
         
@@ -235,7 +238,7 @@ switch ($op) {
         if ($article_id > 0) {
             $article_status = Request::getInt('article_status', 10);
             $obj = $articleHandler->get($article_id);
-            if (0 == $article_status || 2 == $article_status){
+            if (0 == $article_status || 2 == $article_status) {
                 $obj->setVar('article_status', 1);
             } else {
                 $obj->setVar('article_status', 0);

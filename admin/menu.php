@@ -17,15 +17,15 @@
  * @author          Mage Gregory (AKA Mage)
  */
 
-defined('XOOPS_ROOT_PATH') || die('XOOPS root path not defined');
+use XoopsModules\Xmarticle;
 
-// get path to icons
-$pathIcon32 = '';
-if (class_exists('Xmf\Module\Admin', true)) {
-    $pathIcon32 = \Xmf\Module\Admin::menuIconPath('');
-}
+require_once __DIR__ . '/../class/Helper.php';
+//require_once __DIR__ . '/../include/common.php';
+$helper = Xmarticle\Helper::getInstance();
 
-$adminmenu = [];
+$pathIcon32 = \Xmf\Module\Admin::menuIconPath('');
+$pathModIcon32 = $helper->getModule()->getInfo('modicons32');
+
 // Index
 $adminmenu[] = [
     'title' => _MI_XMARTICLE_MENU_HOME,

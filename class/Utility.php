@@ -1,4 +1,5 @@
-<?php
+<?php namespace XoopsModules\Xmarticle;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -20,7 +21,7 @@
 /**
  * Class XmarticleUtility
  */
-class XmarticleUtility
+class Utility
 {
     public static function fieldTypes()
     {
