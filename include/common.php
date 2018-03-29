@@ -16,7 +16,7 @@
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author          Mage Gregory (AKA Mage)
  */
-class_exists('\Xmf\Module\Admin') or die('XMF is required.');
+class_exists('\Xmf\Module\Admin') || die('XMF is required.');
 
 use Xmf\Module\Helper;
 

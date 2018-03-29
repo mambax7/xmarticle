@@ -19,30 +19,30 @@
 
 use \Xmf\Request;
 
-include_once __DIR__ . '/header.php';
+require_once __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'xmarticle_index.tpl';
-include_once XOOPS_ROOT_PATH . '/header.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
 
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname', 'n') . '/assets/css/styles.css', null);
 
 // Get Permission to view
 $viewPermissionCat = XmarticleUtility::getPermissionCat('xmarticle_view');
 // Get article
-$criteria = new CriteriaCompo();
-$criteria->add(new Criteria('article_status', 1));
+$criteria = new \CriteriaCompo();
+$criteria->add(new \Criteria('article_status', 1));
 $article_arr = $articleHandler->getall($criteria);
 
 // Get start pager
 $start = Request::getInt('start', 0);
 // Criteria
-$criteria = new CriteriaCompo();
+$criteria = new \CriteriaCompo();
 $criteria->setSort('category_weight ASC, category_name');
 $criteria->setOrder('ASC');
 $criteria->setStart($start);
 $criteria->setLimit($nb_limit);
-$criteria->add(new Criteria('category_status', 1));
+$criteria->add(new \Criteria('category_status', 1));
 if (!empty($viewPermissionCat)) {
-    $criteria->add(new Criteria('category_id', '(' . implode(',', $viewPermissionCat) . ')', 'IN'));
+    $criteria->add(new \Criteria('category_id', '(' . implode(',', $viewPermissionCat) . ')', 'IN'));
 }
 $category_arr   = $categoryHandler->getAll($criteria);
 $category_count = $categoryHandler->getCount($criteria);
@@ -68,7 +68,7 @@ if ($category_count > 0 && !empty($viewPermissionCat)) {
     }
     // Display Page Navigation
     if ($category_count > $nb_limit) {
-        $nav = new XoopsPageNav($category_count, $nb_limit, $start, 'start');
+        $nav = new \XoopsPageNav($category_count, $nb_limit, $start, 'start');
         $xoopsTpl->assign('nav_menu', $nav->renderNav(4));
     }
 }

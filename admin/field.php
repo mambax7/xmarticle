@@ -37,7 +37,7 @@ switch ($op) {
         // Get start pager
         $start = Request::getInt('start', 0);
         // Criteria
-        $criteria = new CriteriaCompo();
+        $criteria = new \CriteriaCompo();
         $criteria->setSort('field_weight ASC, field_name');
         $criteria->setOrder('ASC');
         $criteria->setStart($start);
@@ -62,7 +62,7 @@ switch ($op) {
             }
             // Display Page Navigation
             if ($field_count > $nb_limit) {
-                $nav = new XoopsPageNav($field_count, $nb_limit, $start, 'start');
+                $nav = new \XoopsPageNav($field_count, $nb_limit, $start, 'start');
                 $xoopsTpl->assign('nav_menu', $nav->renderNav(4));
             }
         } else {

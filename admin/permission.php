@@ -21,7 +21,7 @@ use Xmf\Module\Admin;
 use Xmf\Request;
 
 require __DIR__ . '/admin_header.php';
-include_once XOOPS_ROOT_PATH.'/class/xoopsform/grouppermform.php';
+require_once XOOPS_ROOT_PATH.'/class/xoopsform/grouppermform.php';
 $moduleAdmin = Admin::getInstance();
 $moduleAdmin->displayNavigation('permission.php');
 
@@ -30,7 +30,7 @@ $permission = Request::getInt('permission', 1);
 $tab_perm   = [1 => _MA_XMARTICLE_PERMISSION_VIEW, 2 => _MA_XMARTICLE_PERMISSION_SUBMIT, 3 => _MA_XMARTICLE_PERMISSION_OTHER];
 
 // Category
-$criteria = new CriteriaCompo();
+$criteria = new \CriteriaCompo();
 $category_arr = $categoryHandler->getAll($criteria);
 if (count($category_arr) > 0) {
     $tab_perm = [1 => _MA_XMARTICLE_PERMISSION_VIEW, 2 => _MA_XMARTICLE_PERMISSION_SUBMIT, 3 => _MA_XMARTICLE_PERMISSION_OTHER];
@@ -76,7 +76,7 @@ switch ($permission) {
         break;
 }
 
-$permissionsForm = new XoopsGroupPermForm($formTitle, $helper->getModule()->getVar('mid'), $permissionName, $permissionDescription, 'admin/permission.php?permission=' . $permission);
+$permissionsForm = new \XoopsGroupPermForm($formTitle, $helper->getModule()->getVar('mid'), $permissionName, $permissionDescription, 'admin/permission.php?permission=' . $permission);
 foreach ($global_perms_array as $perm_id => $permissionName) {
     $permissionsForm->addItem($perm_id, $permissionName) ;
 }

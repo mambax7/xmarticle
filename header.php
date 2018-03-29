@@ -18,8 +18,8 @@
  */
 $path = dirname(dirname(__DIR__));
 require_once $path . '/mainfile.php';
-include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
-include_once __DIR__ . '/include/common.php';
+require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+require_once __DIR__ . '/include/common.php';
 
 xoops_load('utility', basename(__DIR__));
 

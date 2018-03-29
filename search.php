@@ -19,10 +19,10 @@
 
 use \Xmf\Request;
 
-include_once __DIR__ . '/header.php';
+require_once __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'xmarticle_search.tpl';
-include_once XOOPS_ROOT_PATH . '/header.php';
-include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname', 'n') . '/assets/css/styles.css', null);
 
@@ -47,24 +47,24 @@ $start = Request::getInt('start', 0);
 
 // Get Permission to view cat
 $viewPermissionCat = XmarticleUtility::getPermissionCat('xmarticle_view');
-$criteria          = new CriteriaCompo();
+$criteria          = new \CriteriaCompo();
 $criteria->setSort('category_weight ASC, category_name');
 $criteria->setOrder('ASC');
-$criteria->add(new Criteria('category_status', 1));
+$criteria->add(new \Criteria('category_status', 1));
 if (!empty($viewPermissionCat)) {
-    $criteria->add(new Criteria('category_id', '(' . implode(',', $viewPermissionCat) . ')', 'IN'));
+    $criteria->add(new \Criteria('category_id', '(' . implode(',', $viewPermissionCat) . ')', 'IN'));
 } else {
     redirect_header('index.php', 3, _MA_XMARTICLE_ERROR_NOACESSCATEGORY);
 }
 $category_arr = $categoryHandler->getAll($criteria);
 
-$form = new XoopsThemeForm(_MA_XMARTICLE_SEARCHFORM, 'form', 'search.php', 'post', true);
+$form = new \XoopsThemeForm(_MA_XMARTICLE_SEARCHFORM, 'form', 'search.php', 'post', true);
 // title
-$form->addElement(new XoopsFormText(_MA_XMARTICLE_ARTICLE_NAME, 's_name', 50, 255, $s_name));
+$form->addElement(new \XoopsFormText(_MA_XMARTICLE_ARTICLE_NAME, 's_name', 50, 255, $s_name));
 //reference
-$form->addElement(new XoopsFormText(_MA_XMARTICLE_ARTICLE_REFERENCE, 's_reference', 50, 255, $s_reference));
+$form->addElement(new \XoopsFormText(_MA_XMARTICLE_ARTICLE_REFERENCE, 's_reference', 50, 255, $s_reference));
 //cat
-$field_cat = new XoopsFormSelect(_MA_XMARTICLE_ARTICLE_CATEGORY, 's_cat', $s_cat);
+$field_cat = new \XoopsFormSelect(_MA_XMARTICLE_ARTICLE_CATEGORY, 's_cat', $s_cat);
 $field_cat->addOption(0, _ALL);
 foreach (array_keys($category_arr) as $i) {
     $field_cat->addOption($category_arr[$i]->getVar('category_id'), $category_arr[$i]->getVar('category_name'));
@@ -77,12 +77,12 @@ $fielddata_aid_arr = [];
 if (0 != $s_cat) {
     $category = $categoryHandler->get($s_cat);
     // field
-    $criteria = new CriteriaCompo();
+    $criteria = new \CriteriaCompo();
     $criteria->setSort('field_weight ASC, field_name');
     $criteria->setOrder('ASC');
-    $criteria->add(new Criteria('field_id', '(' . implode(',', $category->getVar('category_fields')) . ')', 'IN'));
-    $criteria->add(new Criteria('field_status', 0, '!='));
-    $criteria->add(new Criteria('field_search', 0, '!='));
+    $criteria->add(new \Criteria('field_id', '(' . implode(',', $category->getVar('category_fields')) . ')', 'IN'));
+    $criteria->add(new \Criteria('field_status', 0, '!='));
+    $criteria->add(new \Criteria('field_search', 0, '!='));
     $field_arr = $fieldHandler->getAll($criteria);
     $result    = true;
     foreach (array_keys($field_arr) as $i) {
@@ -95,18 +95,18 @@ if (0 != $s_cat) {
         if (isset($_POST['f_' . $i])) {
             $value = $_POST['f_' . $i];
             if ('' != $value && 999 != $value) {
-                $criteria = new CriteriaCompo();
+                $criteria = new \CriteriaCompo();
                 switch ($field_arr[$i]->getVar('field_type')) {
                     case 'vs_text':
                     case 's_text':
                     case 'm_text':
                     case 'l_text':
-                        $criteria->add(new Criteria('fielddata_fid', $i));
-                        $criteria->add(new Criteria('fielddata_value1', '%' . $value . '%', 'LIKE'));
+                        $criteria->add(new \Criteria('fielddata_fid', $i));
+                        $criteria->add(new \Criteria('fielddata_value1', '%' . $value . '%', 'LIKE'));
                         break;
 
                     case 'select':
-                        $criteria->add(new Criteria('fielddata_fid', $i));
+                        $criteria->add(new \Criteria('fielddata_fid', $i));
                         if ('' != $value) {
                             $value_bdd = '';
                             foreach (array_keys($value) as $k) {
@@ -119,24 +119,24 @@ if (0 != $s_cat) {
                             }
                             $value_bdd = '(' . $value_bdd . ')';
                         }
-                        $criteria->add(new Criteria('fielddata_value1', $value_bdd, 'IN'));
+                        $criteria->add(new \Criteria('fielddata_value1', $value_bdd, 'IN'));
                         break;
 
                     case 'radio_yn':
                     case 'radio':
-                        $criteria->add(new Criteria('fielddata_fid', $i));
-                        $criteria->add(new Criteria('fielddata_value1', $value));
+                        $criteria->add(new \Criteria('fielddata_fid', $i));
+                        $criteria->add(new \Criteria('fielddata_value1', $value));
                         break;
 
                     case 'label':
                     case 'text':
-                        $criteria->add(new Criteria('fielddata_fid', $i));
-                        $criteria->add(new Criteria('fielddata_value2', $value));
+                        $criteria->add(new \Criteria('fielddata_fid', $i));
+                        $criteria->add(new \Criteria('fielddata_value2', $value));
                         break;
 
                     case 'select_multi':
                     case 'checkbox':
-                        $criteria->add(new Criteria('fielddata_fid', $i));
+                        $criteria->add(new \Criteria('fielddata_fid', $i));
                         if ('' != $value) {
                             $value_bdd = '';
                             foreach (array_keys($value) as $k) {
@@ -149,15 +149,15 @@ if (0 != $s_cat) {
                             }
                             $value_bdd = '(' . $value_bdd . ')';
                         }
-                        $criteria->add(new Criteria('fielddata_value3', $value_bdd, 'IN'));
+                        $criteria->add(new \Criteria('fielddata_value3', $value_bdd, 'IN'));
                         break;
 
                     case 'number':
                         if (isset($_POST['fnex_' . $i])) {
                             $value_fnex = $_POST['fnex_' . $i];
                             if ('' != $value_fnex) {
-                                $criteria->add(new Criteria('fielddata_fid', $i));
-                                $criteria->add(new Criteria('fielddata_value4', $value_fnex));
+                                $criteria->add(new \Criteria('fielddata_fid', $i));
+                                $criteria->add(new \Criteria('fielddata_value4', $value_fnex));
                             }
                         }
                         if (isset($_POST['fnmi_' . $i]) && '' == $value_fnex) {
@@ -172,19 +172,19 @@ if (0 != $s_cat) {
                         }
 
                         if ('' != $value_fnma || '' != $value_fnmi) {
-                            $criteria->add(new Criteria('fielddata_fid', $i));
+                            $criteria->add(new \Criteria('fielddata_fid', $i));
                         }
                         if ('' != $value_fnmi) {
-                            $criteria->add(new Criteria('fielddata_value4', $value_fnmi, '>='));
+                            $criteria->add(new \Criteria('fielddata_value4', $value_fnmi, '>='));
                         }
                         if ('' != $value_fnma) {
-                            $criteria->add(new Criteria('fielddata_value4', $value_fnma, '<='));
+                            $criteria->add(new \Criteria('fielddata_value4', $value_fnma, '<='));
                         }
                         break;
                 }
                 if (true == $result) {
                     if (count($fielddata_aid_arr) > 0) {
-                        $criteria->add(new Criteria('fielddata_aid', '(' . implode(',', $fielddata_aid_arr) . ')', 'IN'));
+                        $criteria->add(new \Criteria('fielddata_aid', '(' . implode(',', $fielddata_aid_arr) . ')', 'IN'));
                         $fielddata_aid_arr = [];
                     }
                     $fielddata_arr = $fielddataHandler->getAll($criteria);
@@ -205,20 +205,20 @@ if (0 != $s_cat) {
         }
         switch ($field_arr[$i]->getVar('field_type')) {
             case 'label':
-                $form->addElement(new XoopsFormLabel($caption, $value, $name), $required);
-                $form->addElement(new XoopsFormHidden($name, $value));
+                $form->addElement(new \XoopsFormLabel($caption, $value, $name), $required);
+                $form->addElement(new \XoopsFormHidden($name, $value));
                 break;
             case 'vs_text':
-                $form->addElement(new XoopsFormText($caption, $name, 50, 25, $value), $required);
+                $form->addElement(new \XoopsFormText($caption, $name, 50, 25, $value), $required);
                 break;
             case 's_text':
-                $form->addElement(new XoopsFormText($caption, $name, 50, 50, $value), $required);
+                $form->addElement(new \XoopsFormText($caption, $name, 50, 50, $value), $required);
                 break;
             case 'm_text':
-                $form->addElement(new XoopsFormText($caption, $name, 50, 100, $value), $required);
+                $form->addElement(new \XoopsFormText($caption, $name, 50, 100, $value), $required);
                 break;
             case 'l_text':
-                $form->addElement(new XoopsFormText($caption, $name, 50, 255, $value), $required);
+                $form->addElement(new \XoopsFormText($caption, $name, 50, 255, $value), $required);
                 break;
             case 'text':
                 $editor_configs           = [];
@@ -226,11 +226,11 @@ if (0 != $s_cat) {
                 $editor_configs['value']  = $value;
                 $editor_configs['rows']   = 2;
                 $editor_configs['editor'] = 'Plain Text';
-                $form->addElement(new XoopsFormEditor($caption, $name, $editor_configs), $required);
+                $form->addElement(new \XoopsFormEditor($caption, $name, $editor_configs), $required);
                 break;
             case 'select':
             case 'select_multi':
-                $select_multi_field = new XoopsFormSelect($caption, $name, $value, 5, true);
+                $select_multi_field = new \XoopsFormSelect($caption, $name, $value, 5, true);
                 $select_multi_field->addOptionArray($field_arr[$i]->getVar('field_options'));
                 $form->addElement($select_multi_field, $required);
                 break;
@@ -238,7 +238,7 @@ if (0 != $s_cat) {
                 if ('' == $value) {
                     $value = 999;
                 }
-                $radio_yn_field = new XoopsFormSelect($caption, $name, $value);
+                $radio_yn_field = new \XoopsFormSelect($caption, $name, $value);
                 $radio_yn_field->addOption(999, '&nbsp;');
                 $radio_yn_field->addOption(1, _YES);
                 $radio_yn_field->addOption(0, _NO);
@@ -248,35 +248,35 @@ if (0 != $s_cat) {
                 if ('' == $value) {
                     $value = 999;
                 }
-                $radio_field = new XoopsFormSelect($caption, $name, $value);
+                $radio_field = new \XoopsFormSelect($caption, $name, $value);
                 $radio_field->addOption(999, '&nbsp;');
                 $radio_field->addOptionArray($field_arr[$i]->getVar('field_options'));
                 $form->addElement($radio_field, $required);
                 break;
             case 'checkbox':
-                $checkbox_field = new XoopsFormCheckBox($caption, $name, $value);
+                $checkbox_field = new \XoopsFormCheckBox($caption, $name, $value);
                 $checkbox_field->addOptionArray($field_arr[$i]->getVar('field_options'));
                 $form->addElement($checkbox_field, $required);
                 break;
             case 'number':
-                $number  = new XoopsFormElementTray($caption);
-                $exactly = new XoopsFormText('Exactly', 'fnex_' . $i, 10, 255, $value_fnex);
+                $number  = new \XoopsFormElementTray($caption);
+                $exactly = new \XoopsFormText('Exactly', 'fnex_' . $i, 10, 255, $value_fnex);
                 $number->addElement($exactly);
-                $min = new XoopsFormText('Min', 'fnmi_' . $i, 10, 255, $value_fnmi);
+                $min = new \XoopsFormText('Min', 'fnmi_' . $i, 10, 255, $value_fnmi);
                 $number->addElement($min);
-                $max = new XoopsFormText('Max', 'fnma_' . $i, 10, 255, $value_fnma);
+                $max = new \XoopsFormText('Max', 'fnma_' . $i, 10, 255, $value_fnma);
                 $number->addElement($max);
                 $form->addElement($number, $required);
-                $form->addElement(new XoopsFormHidden($name, true));
+                $form->addElement(new \XoopsFormHidden($name, true));
                 break;
         }
         unset($value);
     }
 }
 // search
-$button = new XoopsFormElementTray('');
-$button->addElement(new XoopsFormButton('', 'search', _SEARCH, 'submit'));
-$button->addElement(new XoopsFormButton('', 'reset', _RESET, 'submit'));
+$button = new \XoopsFormElementTray('');
+$button->addElement(new \XoopsFormButton('', 'search', _SEARCH, 'submit'));
+$button->addElement(new \XoopsFormButton('', 'reset', _RESET, 'submit'));
 $form->addElement($button);
 
 $xoopsTpl->assign('form', $form->render());
@@ -284,26 +284,26 @@ $xoopsTpl->assign('form', $form->render());
 if ('' != $search) {
     $arguments = 's_cat=' . $s_cat . '&amp;';
     // Criteria
-    $criteria = new CriteriaCompo();
+    $criteria = new \CriteriaCompo();
     if ('' != $s_name) {
-        $criteria->add(new Criteria('article_name', '%' . $s_name . '%', 'LIKE'));
+        $criteria->add(new \Criteria('article_name', '%' . $s_name . '%', 'LIKE'));
         $arguments .= 's_name=' . $s_name . '&amp;';
     }
     if ('' != $s_reference) {
-        $criteria->add(new Criteria('article_reference', '%' . $s_reference . '%', 'LIKE'));
+        $criteria->add(new \Criteria('article_reference', '%' . $s_reference . '%', 'LIKE'));
         $arguments .= 's_reference=' . $s_reference . '&amp;';
     }
     if (count($fielddata_aid_arr) > 0) {
-        $criteria->add(new Criteria('article_id', '(' . implode(',', $fielddata_aid_arr) . ')', 'IN'));
+        $criteria->add(new \Criteria('article_id', '(' . implode(',', $fielddata_aid_arr) . ')', 'IN'));
     }
     $criteria->setSort('article_name');
     $criteria->setOrder('ASC');
     //$criteria->setStart($start);
     //$criteria->setLimit($nb_limit);
     if (0 != $s_cat) {
-        $criteria->add(new Criteria('article_cid', $s_cat));
+        $criteria->add(new \Criteria('article_cid', $s_cat));
     }
-    $criteria->add(new Criteria('article_status', 1));
+    $criteria->add(new \Criteria('article_status', 1));
     $articleHandler->table_link   = $articleHandler->db->prefix('xmarticle_category');
     $articleHandler->field_link   = 'category_id';
     $articleHandler->field_object = 'article_cid';
@@ -326,7 +326,7 @@ if ('' != $search) {
         }
         // Display Page Navigation
         /*if ($article_count > $nb_limit) {
-            $nav = new XoopsPageNav($article_count, $nb_limit, $start, 'start', 'search=Y&amp;' . $arguments);
+            $nav = new \XoopsPageNav($article_count, $nb_limit, $start, 'start', 'search=Y&amp;' . $arguments);
             $xoopsTpl->assign('nav_menu', $nav->renderNav(4));
         }*/
     } else {

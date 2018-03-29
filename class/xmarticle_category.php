@@ -17,7 +17,7 @@
  * @author          Mage Gregory (AKA Mage)
  */
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Class xmarticle_category
@@ -70,8 +70,8 @@ class xmarticle_category extends XoopsObject
         //logo
         $uploadirectory = '/xmarticle/images/category';
         if (UPLOAD_ERR_NO_FILE != $_FILES['category_logo']['error']) {
-            include_once XOOPS_ROOT_PATH . '/class/uploader.php';
-            $uploader_category_img = new XoopsMediaUploader(XOOPS_UPLOAD_PATH . $uploadirectory, ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'], $upload_size, null, null);
+            require_once XOOPS_ROOT_PATH . '/class/uploader.php';
+            $uploader_category_img = new \XoopsMediaUploader(XOOPS_UPLOAD_PATH . $uploadirectory, ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'], $upload_size, null, null);
             if ($uploader_category_img->fetchMedia('category_logo')) {
                 $uploader_category_img->setPrefix('category_');
                 if (!$uploader_category_img->upload()) {
@@ -149,17 +149,17 @@ class xmarticle_category extends XoopsObject
         if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
-        include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+        require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
         include __DIR__ . '/../include/common.php';
 
         //form title
         $title = $this->isNew() ? sprintf(_MA_XMARTICLE_ADD) : sprintf(_MA_XMARTICLE_EDIT);
 
-        $form = new XoopsThemeForm($title, 'form', $action, 'post', true);
+        $form = new \XoopsThemeForm($title, 'form', $action, 'post', true);
         $form->setExtra('enctype="multipart/form-data"');
 
         if (!$this->isNew()) {
-            $form->addElement(new XoopsFormHidden('category_id', $this->getVar('category_id')));
+            $form->addElement(new \XoopsFormHidden('category_id', $this->getVar('category_id')));
             $status = $this->getVar('category_status');
             $weight = $this->getVar('category_weight');
         } else {
@@ -168,10 +168,10 @@ class xmarticle_category extends XoopsObject
         }
 
         // title
-        $form->addElement(new XoopsFormText(_MA_XMARTICLE_CATEGORY_NAME, 'category_name', 50, 255, $this->getVar('category_name')), true);
+        $form->addElement(new \XoopsFormText(_MA_XMARTICLE_CATEGORY_NAME, 'category_name', 50, 255, $this->getVar('category_name')), true);
 
         // reference
-        $form->addElement(new XoopsFormText(_MA_XMARTICLE_CATEGORY_REFERENCE, 'category_reference', 20, 50, $this->getVar('category_reference')), true);
+        $form->addElement(new \XoopsFormText(_MA_XMARTICLE_CATEGORY_REFERENCE, 'category_reference', 20, 50, $this->getVar('category_reference')), true);
 
         // description
         $editor_configs           = [];
@@ -182,36 +182,36 @@ class xmarticle_category extends XoopsObject
         $editor_configs['width']  = '100%';
         $editor_configs['height'] = '400px';
         $editor_configs['editor'] = $helper->getConfig('admin_editor', 'Plain Text');
-        $form->addElement(new XoopsFormEditor(_MA_XMARTICLE_CATEGORY_DESC, 'category_description', $editor_configs), false);
+        $form->addElement(new \XoopsFormEditor(_MA_XMARTICLE_CATEGORY_DESC, 'category_description', $editor_configs), false);
         // logo
         $blank_img       = $this->getVar('category_logo') ?: 'blank.gif';
         $uploadirectory  = '/uploads/xmarticle/images/category';
-        $imgtray_img     = new XoopsFormElementTray(_MA_XMARTICLE_CATEGORY_LOGOFILE . '<br><br>' . sprintf(_MA_XMARTICLE_CATEGORY_UPLOADSIZE, $upload_size / 1000), '<br>');
+        $imgtray_img     = new \XoopsFormElementTray(_MA_XMARTICLE_CATEGORY_LOGOFILE . '<br><br>' . sprintf(_MA_XMARTICLE_CATEGORY_UPLOADSIZE, $upload_size / 1000), '<br>');
         $imgpath_img     = sprintf(_MA_XMARTICLE_CATEGORY_FORMPATH, $uploadirectory);
-        $imageselect_img = new XoopsFormSelect($imgpath_img, 'category_logo', $blank_img);
+        $imageselect_img = new \XoopsFormSelect($imgpath_img, 'category_logo', $blank_img);
         $image_array_img = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
-        $imageselect_img->addOption("$blank_img", $blank_img);
+        $imageselect_img->addOption($blank_img, $blank_img);
         foreach ($image_array_img as $image_img) {
-            $imageselect_img->addOption("$image_img", $image_img);
+            $imageselect_img->addOption((string)$image_img, $image_img);
         }
         $imageselect_img->setExtra("onchange='showImgSelected(\"image_img2\", \"category_logo\", \"" . $uploadirectory . '", "", "' . XOOPS_URL . "\")'");
         $imgtray_img->addElement($imageselect_img, false);
-        $imgtray_img->addElement(new XoopsFormLabel('', "<br><img src='" . XOOPS_URL . '/' . $uploadirectory . '/' . $blank_img . "' name='image_img2' id='image_img2' alt=''>"));
-        $fileseltray_img = new XoopsFormElementTray('<br>', '<br><br>');
-        $fileseltray_img->addElement(new XoopsFormFile(_MA_XMARTICLE_CATEGORY_UPLOAD, 'category_logo', $upload_size), false);
-        $fileseltray_img->addElement(new XoopsFormLabel(''), false);
+        $imgtray_img->addElement(new \XoopsFormLabel('', "<br><img src='" . XOOPS_URL . '/' . $uploadirectory . '/' . $blank_img . "' name='image_img2' id='image_img2' alt=''>"));
+        $fileseltray_img = new \XoopsFormElementTray('<br>', '<br><br>');
+        $fileseltray_img->addElement(new \XoopsFormFile(_MA_XMARTICLE_CATEGORY_UPLOAD, 'category_logo', $upload_size), false);
+        $fileseltray_img->addElement(new \XoopsFormLabel(''), false);
         $imgtray_img->addElement($fileseltray_img);
         $form->addElement($imgtray_img);
         // weight
-        $form->addElement(new XoopsFormText(_MA_XMARTICLE_CATEGORY_WEIGHT, 'category_weight', 5, 5, $weight), true);
+        $form->addElement(new \XoopsFormText(_MA_XMARTICLE_CATEGORY_WEIGHT, 'category_weight', 5, 5, $weight), true);
 
         // remove field
         $fields = $this->getVar('category_fields');
         if (count($fields) > 0) {
-            $remove_fields          = new XoopsFormCheckBox(_MA_XMARTICLE_CATEGORY_REMOVEFIELDS, 'removeFields');
+            $remove_fields          = new \XoopsFormCheckBox(_MA_XMARTICLE_CATEGORY_REMOVEFIELDS, 'removeFields');
             $remove_fields->columns = 3;
-            $criteria               = new CriteriaCompo();
-            $criteria->add(new Criteria('field_id', '(' . implode(',', $fields) . ')', 'IN'));
+            $criteria               = new \CriteriaCompo();
+            $criteria->add(new \Criteria('field_id', '(' . implode(',', $fields) . ')', 'IN'));
             $field_arr = $fieldHandler->getall($criteria);
             foreach (array_keys($field_arr) as $key) {
                 $field_temp_arr[$key] = $field_arr[$key]->getVar('field_name');
@@ -221,10 +221,10 @@ class xmarticle_category extends XoopsObject
         }
 
         // field
-        $criteria = new CriteriaCompo();
+        $criteria = new \CriteriaCompo();
         $criteria->setSort('field_weight ASC, field_name');
         $criteria->setOrder('ASC');
-        $criteria->add(new Criteria('field_status', 0, '!='));
+        $criteria->add(new \Criteria('field_status', 0, '!='));
         $field_arr  = $fieldHandler->getall($criteria);
         $sel_option = '<option value=""> </option>';
         foreach (array_keys($field_arr) as $i) {
@@ -241,10 +241,10 @@ class xmarticle_category extends XoopsObject
         }
         $field_text .= '</table>';
         $field_text .= "<label><input type='checkbox' name='addmorefields' value='True'>" . _MA_XMARTICLE_FIELD_ADDMOREFIELDS . '</label>';
-        $form->addElement(new XoopsFormLabel(_MA_XMARTICLE_FIELD_ADDFIELD, $field_text), true);
+        $form->addElement(new \XoopsFormLabel(_MA_XMARTICLE_FIELD_ADDFIELD, $field_text), true);
 
         // status
-        $form_status = new XoopsFormRadio(_MA_XMARTICLE_STATUS, 'category_status', $status);
+        $form_status = new \XoopsFormRadio(_MA_XMARTICLE_STATUS, 'category_status', $status);
         $options     = [1 => _MA_XMARTICLE_STATUS_A, 0 => _MA_XMARTICLE_STATUS_NA,];
         $form_status->addOptionArray($options);
         $form->addElement($form_status);
@@ -254,9 +254,9 @@ class xmarticle_category extends XoopsObject
         $form->addElement($permHelper->getGroupSelectFormForItem('xmarticle_view', $this->getVar('category_id'), _MA_XMARTICLE_PERMISSION_VIEW_THIS, 'xmarticle_view_perms', true));
         $form->addElement($permHelper->getGroupSelectFormForItem('xmarticle_submit', $this->getVar('category_id'), _MA_XMARTICLE_PERMISSION_SUBMIT_THIS, 'xmarticle_submit_perms', true));
 
-        $form->addElement(new XoopsFormHidden('op', 'save'));
+        $form->addElement(new \XoopsFormHidden('op', 'save'));
         // submit
-        $form->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
+        $form->addElement(new \XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
 
         return $form;
     }
@@ -269,7 +269,7 @@ class xmarticlexmarticle_categoryHandler extends XoopsPersistableObjectHandler
 {
     /**
      * xmarticlexmarticle_categoryHandler constructor.
-     * @param null|XoopsDatabase $db
+     * @param null|\XoopsDatabase $db
      */
     public function __construct($db)
     {

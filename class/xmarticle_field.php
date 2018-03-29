@@ -17,7 +17,7 @@
  * @author          Mage Gregory (AKA Mage)
  */
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Class xmarticle_field
@@ -52,19 +52,19 @@ class xmarticle_field extends XoopsObject
         if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
-        include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+        require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
-        $form = new XoopsThemeForm(_MA_XMARTICLE_ADD, 'form', $action, 'post', true);
+        $form = new \XoopsThemeForm(_MA_XMARTICLE_ADD, 'form', $action, 'post', true);
         // type
-        $field_type = new XoopsFormSelect(_MA_XMARTICLE_FIELD_TYPE, 'field_type', $this->getVar('field_type'));
+        $field_type = new \XoopsFormSelect(_MA_XMARTICLE_FIELD_TYPE, 'field_type', $this->getVar('field_type'));
         $field_arr  = XmarticleUtility::fieldTypes();
         foreach ($field_arr as $key => $value) {
             $field_type->addOption($key, $value);
         }
         $form->addElement($field_type, true);
-        $form->addElement(new XoopsFormHidden('op', 'loadtype'));
+        $form->addElement(new \XoopsFormHidden('op', 'loadtype'));
         // submit
-        $form->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
+        $form->addElement(new \XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
 
         return $form;
     }
@@ -79,22 +79,22 @@ class xmarticle_field extends XoopsObject
         if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
-        include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+        require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
         $field_arr = XmarticleUtility::fieldTypes();
         //form title
         $title = $this->isNew() ? sprintf(_MA_XMARTICLE_ADD) : sprintf(_MA_XMARTICLE_EDIT);
 
-        $form = new XoopsThemeForm($title, 'form', $action, 'post', true);
+        $form = new \XoopsThemeForm($title, 'form', $action, 'post', true);
 
         if (!$this->isNew()) {
-            $form->addElement(new XoopsFormHidden('field_id', $this->getVar('field_id')));
+            $form->addElement(new \XoopsFormHidden('field_id', $this->getVar('field_id')));
             $field_name = $field_arr[$this->getVar('field_type')];
             $field_type = $this->getVar('field_type');
             $weight     = $this->getVar('field_weight');
             $search     = $this->getVar('field_search');
             $required   = $this->getVar('field_required');
             $status     = $this->getVar('field_status');
-            if ('select_multi' == $field_type || 'checkbox' == $field_type) {
+            if ('select_multi' === $field_type || 'checkbox' === $field_type) {
                 $default = unserialize($this->getVar('field_default', 'n'));
             }
         } else {
@@ -109,7 +109,7 @@ class xmarticle_field extends XoopsObject
         $form->addElement(new xoopsFormLabel(_MA_XMARTICLE_FIELD_TYPE, $field_name));
 
         // name
-        $form->addElement(new XoopsFormText(_MA_XMARTICLE_FIELD_NAME, 'field_name', 50, 255, $this->getVar('field_name')), true);
+        $form->addElement(new \XoopsFormText(_MA_XMARTICLE_FIELD_NAME, 'field_name', 50, 255, $this->getVar('field_name')), true);
 
         // description
         $editor_configs           = [];
@@ -117,7 +117,7 @@ class xmarticle_field extends XoopsObject
         $editor_configs['value']  = $this->getVar('field_description', 'e');
         $editor_configs['rows']   = 2;
         $editor_configs['editor'] = 'Plain Text';
-        $form->addElement(new XoopsFormEditor(_MA_XMARTICLE_FIELD_DESC, 'field_description', $editor_configs), false);
+        $form->addElement(new \XoopsFormEditor(_MA_XMARTICLE_FIELD_DESC, 'field_description', $editor_configs), false);
 
         // options
         switch ($field_type) {
@@ -150,7 +150,7 @@ class xmarticle_field extends XoopsObject
                     }
                     $option_text .= "<tr><td><input type='text' name='addOption[{$i}][key]' id='addOption[{$i}][key]' value='" . $key . "' size='15'></td>";
                     $option_text .= "<td><input type='text' name='addOption[{$i}][value]' id='addOption[{$i}][value]' value='" . $value . "' size='35'></td>";
-                    if ('select_multi' == $field_type || 'checkbox' == $field_type) {
+                    if ('select_multi' === $field_type || 'checkbox' === $field_type) {
                         $checked = '';
                         if (!empty($default)) {
                             if (in_array($value, $default)) {
@@ -178,9 +178,9 @@ class xmarticle_field extends XoopsObject
                 }
                 $option_text .= '</table>';
                 $option_text .= "<label><input type='checkbox' name='addmoreoptions' value='True'>" . _MA_XMARTICLE_FIELD_ADDMOREOPTIONS . '</label>';
-                $form->addElement(new XoopsFormLabel(_MA_XMARTICLE_FIELD_ADDOPTION, $option_text), true);
+                $form->addElement(new \XoopsFormLabel(_MA_XMARTICLE_FIELD_ADDOPTION, $option_text), true);
                 // sort
-                $sort     = new XoopsFormSelect(_MA_XMARTICLE_FIELD_SORT, 'field_sort', $this->getVar('field_sort'));
+                $sort     = new \XoopsFormSelect(_MA_XMARTICLE_FIELD_SORT, 'field_sort', $this->getVar('field_sort'));
                 $sort_arr = ['DEF' => _MA_XMARTICLE_FIELD_SORTDEF, 'VLH' => _MA_XMARTICLE_FIELD_SORTVLH, 'VHL' => _MA_XMARTICLE_FIELD_SORTVHL, 'KLH' => _MA_XMARTICLE_FIELD_SORTKLH, 'KHL' => _MA_XMARTICLE_FIELD_SORTKHL];
                 $sort->addOptionArray($sort_arr);
                 $form->addElement($sort, true);
@@ -189,19 +189,19 @@ class xmarticle_field extends XoopsObject
         // default
         switch ($field_type) {
             case 'label':
-                $form->addElement(new XoopsFormText(_MA_XMARTICLE_FIELD_DEFAULT, 'field_default', 50, 255, $this->getVar('field_default')), true);
+                $form->addElement(new \XoopsFormText(_MA_XMARTICLE_FIELD_DEFAULT, 'field_default', 50, 255, $this->getVar('field_default')), true);
                 break;
             case 'vs_text':
-                $form->addElement(new XoopsFormText(_MA_XMARTICLE_FIELD_DEFAULT, 'field_default', 50, 25, $this->getVar('field_default')));
+                $form->addElement(new \XoopsFormText(_MA_XMARTICLE_FIELD_DEFAULT, 'field_default', 50, 25, $this->getVar('field_default')));
                 break;
             case 's_text':
-                $form->addElement(new XoopsFormText(_MA_XMARTICLE_FIELD_DEFAULT, 'field_default', 50, 50, $this->getVar('field_default')));
+                $form->addElement(new \XoopsFormText(_MA_XMARTICLE_FIELD_DEFAULT, 'field_default', 50, 50, $this->getVar('field_default')));
                 break;
             case 'm_text':
-                $form->addElement(new XoopsFormText(_MA_XMARTICLE_FIELD_DEFAULT, 'field_default', 50, 100, $this->getVar('field_default')));
+                $form->addElement(new \XoopsFormText(_MA_XMARTICLE_FIELD_DEFAULT, 'field_default', 50, 100, $this->getVar('field_default')));
                 break;
             case 'l_text':
-                $form->addElement(new XoopsFormText(_MA_XMARTICLE_FIELD_DEFAULT, 'field_default', 50, 255, $this->getVar('field_default')));
+                $form->addElement(new \XoopsFormText(_MA_XMARTICLE_FIELD_DEFAULT, 'field_default', 50, 255, $this->getVar('field_default')));
                 break;
             case 'text':
                 $editor_configs           = [];
@@ -209,38 +209,38 @@ class xmarticle_field extends XoopsObject
                 $editor_configs['value']  = $this->getVar('field_default', 'e');
                 $editor_configs['rows']   = 2;
                 $editor_configs['editor'] = 'Plain Text';
-                $form->addElement(new XoopsFormEditor(_MA_XMARTICLE_FIELD_DEFAULT, 'field_default', $editor_configs), false);
+                $form->addElement(new \XoopsFormEditor(_MA_XMARTICLE_FIELD_DEFAULT, 'field_default', $editor_configs), false);
                 break;
             case 'radio_yn':
-                $form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_FIELD_DEFAULT, 'field_default', $this->getVar('field_default')));
+                $form->addElement(new \XoopsFormRadioYN(_MA_XMARTICLE_FIELD_DEFAULT, 'field_default', $this->getVar('field_default')));
                 break;
             case 'number':
-                $form->addElement(new XoopsFormText(_MA_XMARTICLE_FIELD_DEFAULT, 'field_default', 15, 50, $this->getVar('field_default')));
+                $form->addElement(new \XoopsFormText(_MA_XMARTICLE_FIELD_DEFAULT, 'field_default', 15, 50, $this->getVar('field_default')));
                 break;
         }
 
         // weight
-        $form->addElement(new XoopsFormText(_MA_XMARTICLE_FIELD_WEIGHT, 'field_weight', 5, 5, $weight), true);
+        $form->addElement(new \XoopsFormText(_MA_XMARTICLE_FIELD_WEIGHT, 'field_weight', 5, 5, $weight), true);
 
         // required and search
-        if ('label' == $field_type) {
-            $form->addElement(new XoopsFormHidden('field_required', 0));
-            $form->addElement(new XoopsFormHidden('field_search', 0));
+        if ('label' === $field_type) {
+            $form->addElement(new \XoopsFormHidden('field_required', 0));
+            $form->addElement(new \XoopsFormHidden('field_search', 0));
         } else {
-            $form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_FIELD_SEARCH, 'field_search', $search));
-            $form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_FIELD_REQUIRED, 'field_required', $required));
+            $form->addElement(new \XoopsFormRadioYN(_MA_XMARTICLE_FIELD_SEARCH, 'field_search', $search));
+            $form->addElement(new \XoopsFormRadioYN(_MA_XMARTICLE_FIELD_REQUIRED, 'field_required', $required));
         }
 
         // status
-        $form_status = new XoopsFormRadio(_MA_XMARTICLE_STATUS, 'field_status', $status);
+        $form_status = new \XoopsFormRadio(_MA_XMARTICLE_STATUS, 'field_status', $status);
         $options     = [1 => _MA_XMARTICLE_STATUS_A, 0 => _MA_XMARTICLE_STATUS_NA,];
         $form_status->addOptionArray($options);
         $form->addElement($form_status);
 
-        $form->addElement(new XoopsFormHidden('field_type', $field_type));
-        $form->addElement(new XoopsFormHidden('op', 'save'));
+        $form->addElement(new \XoopsFormHidden('field_type', $field_type));
+        $form->addElement(new \XoopsFormHidden('op', 'save'));
         // submit
-        $form->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
+        $form->addElement(new \XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
 
         return $form;
     }
@@ -304,7 +304,7 @@ class xmarticle_field extends XoopsObject
                 // add options and default
                 if (!empty($_REQUEST['addOption'])) {
                     $i = 0;
-                    if ('select_multi' == $field_type || 'checkbox' == $field_type) {
+                    if ('select_multi' === $field_type || 'checkbox' === $field_type) {
                         $field_default = Xmf\Request::getArray('field_default', []);
                     } else {
                         $field_default = Xmf\Request::getInt('field_default', -1);
@@ -315,7 +315,7 @@ class xmarticle_field extends XoopsObject
                         }
                         //$options[$option['key']] = $option['value'];
                         $options[$option['key']] = htmlentities($option['value'], ENT_QUOTES);
-                        if ('select_multi' == $field_type || 'checkbox' == $field_type) {
+                        if ('select_multi' === $field_type || 'checkbox' === $field_type) {
                             if (in_array($i, $field_default)) {
                                 //$default[$option['key']] = $option['value'];
                                 $default[$option['key']] = htmlentities($option['value'], ENT_QUOTES);
@@ -357,7 +357,7 @@ class xmarticle_field extends XoopsObject
                 // save field_options
                 $this->setVar('field_options', $options);
                 // save field_default
-                if ('select_multi' == $field_type || 'checkbox' == $field_type) {
+                if ('select_multi' === $field_type || 'checkbox' === $field_type) {
                     if (!empty($default)) {
                         $this->setVar('field_default', serialize($default));
                     } else {
@@ -396,7 +396,7 @@ class xmarticlexmarticle_fieldHandler extends XoopsPersistableObjectHandler
 {
     /**
      * xmarticlexmarticle_fieldHandler constructor.
-     * @param null|XoopsDatabase $db
+     * @param null|\XoopsDatabase $db
      */
     public function __construct($db)
     {

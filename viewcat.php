@@ -19,9 +19,9 @@
 
 use \Xmf\Request;
 
-include_once __DIR__ . '/header.php';
+require_once __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'xmarticle_viewcat.tpl';
-include_once XOOPS_ROOT_PATH.'/header.php';
+require_once XOOPS_ROOT_PATH.'/header.php';
 
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname', 'n') . '/assets/css/styles.css', null);
 
@@ -54,13 +54,13 @@ $category_img = $category->getVar('category_logo') ?: 'blank.gif';
 $xoopsTpl->assign('logo', $url_logo_category .  $category_img);
 
 // Get article
-$criteria = new CriteriaCompo();
+$criteria = new \CriteriaCompo();
 $criteria->setSort('article_name');
 $criteria->setOrder('ASC');
 $criteria->setStart($start);
 $criteria->setLimit($nb_limit);
-$criteria->add(new Criteria('article_status', 1));
-$criteria->add(new Criteria('article_cid', $category_id));
+$criteria->add(new \Criteria('article_status', 1));
+$criteria->add(new \Criteria('article_cid', $category_id));
 $article_count = $articleHandler->getCount($criteria);
 $article_arr = $articleHandler->getall($criteria);
 if ($article_count > 0) {
@@ -80,7 +80,7 @@ if ($article_count > 0) {
     }
     // Display Page Navigation
     if ($article_count > $nb_limit) {
-        $nav = new XoopsPageNav($article_count, $nb_limit, $start, 'start', 'category_id=' . $category_id);
+        $nav = new \XoopsPageNav($article_count, $nb_limit, $start, 'start', 'category_id=' . $category_id);
         $xoopsTpl->assign('nav_menu', $nav->renderNav(4));
     }
 }

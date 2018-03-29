@@ -37,7 +37,7 @@ switch ($op) {
         // Get start pager
         $start = Request::getInt('start', 0);
         // Criteria
-        $criteria = new CriteriaCompo();
+        $criteria = new \CriteriaCompo();
         $criteria->setSort('category_weight ASC, category_name');
         $criteria->setOrder('ASC');
         $criteria->setStart($start);
@@ -61,7 +61,7 @@ switch ($op) {
             }
             // Display Page Navigation
             if ($category_count > $nb_limit) {
-                $nav = new XoopsPageNav($category_count, $nb_limit, $start, 'start');
+                $nav = new \XoopsPageNav($category_count, $nb_limit, $start, 'start');
                 $xoopsTpl->assign('nav_menu', $nav->renderNav(4));
             }
         } else {
@@ -130,10 +130,10 @@ switch ($op) {
                 }
                 if ($categoryHandler->delete($obj)) {
                     //Del logo
-                    if ('blank.gif' != $obj->getVar('category_logo')) {
+                    if ('blank.gif' !== $obj->getVar('category_logo')) {
                         // Test if the image is used
-                        $criteria = new CriteriaCompo();
-                        $criteria->add(new Criteria('category_logo', $obj->getVar('category_logo')));
+                        $criteria = new \CriteriaCompo();
+                        $criteria->add(new \Criteria('category_logo', $obj->getVar('category_logo')));
                         $category_count = $categoryHandler->getCount($criteria);
                         if (0 == $category_count) {
                             $urlfile = $path_logo_category . $obj->getVar('category_logo');
@@ -148,8 +148,8 @@ switch ($op) {
                     $permHelper->deletePermissionForItem('xmarticle_view', $category_id);
                     $permHelper->deletePermissionForItem('xmarticle_submit', $category_id);
                     // Del article and fielddata
-                    $criteria = new CriteriaCompo();
-                    $criteria->add(new Criteria('article_cid', $category_id));
+                    $criteria = new \CriteriaCompo();
+                    $criteria->add(new \Criteria('article_cid', $category_id));
                     $article_arr = $articleHandler->getall($criteria);
                     if (count($article_arr) > 0) {
                         foreach (array_keys($article_arr) as $i) {

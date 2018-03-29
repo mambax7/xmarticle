@@ -17,7 +17,7 @@
  * @author          Mage Gregory (AKA Mage)
  */
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Class xmarticle_fielddata
@@ -58,7 +58,7 @@ class xmarticlexmarticle_fielddataHandler extends XoopsPersistableObjectHandler
 {
     /**
      * xmarticlexmarticle_fielddataHandler constructor.
-     * @param null|XoopsDatabase $db
+     * @param null|\XoopsDatabase $db
      */
     public function __construct($db)
     {

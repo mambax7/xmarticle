@@ -43,7 +43,7 @@ switch ($op) {
         // Category
         $article_cid = Request::getInt('article_cid', 0);
         $xoopsTpl->assign('article_cid', $article_cid);
-        $criteria = new CriteriaCompo();
+        $criteria = new \CriteriaCompo();
         $criteria->setSort('category_weight ASC, category_name');
         $criteria->setOrder('ASC');
         $category_arr = $categoryHandler->getAll($criteria);
@@ -65,24 +65,24 @@ switch ($op) {
         $xoopsTpl->assign('article_status_options', $article_status_options);
         
         // Waiting article
-        $criteria = new CriteriaCompo();
-        $criteria->add(new Criteria('article_status', 2));
+        $criteria = new \CriteriaCompo();
+        $criteria->add(new \Criteria('article_status', 2));
         $Waiting_article = $articleHandler->getCount($criteria);
         if ($Waiting_article > 0) {
             $xoopsTpl->assign('warning_message', sprintf(_MA_XMARTICLE_WAITING, $Waiting_article));
         }
         
         // Criteria
-        $criteria = new CriteriaCompo();
+        $criteria = new \CriteriaCompo();
         $criteria->setSort('article_name');
         $criteria->setOrder('ASC');
         $criteria->setStart($start);
         $criteria->setLimit($nb_limit);
         if (0 != $article_cid) {
-            $criteria->add(new Criteria('article_cid', $article_cid));
+            $criteria->add(new \Criteria('article_cid', $article_cid));
         }
         if (10 != $article_status) {
-            $criteria->add(new Criteria('article_status', $article_status));
+            $criteria->add(new \Criteria('article_status', $article_status));
         }
         $articleHandler->table_link = $articleHandler->db->prefix('xmarticle_category');
         $articleHandler->field_link = 'category_id';
@@ -108,7 +108,7 @@ switch ($op) {
             }
             // Display Page Navigation
             if ($article_count > $nb_limit) {
-                $nav = new XoopsPageNav($article_count, $nb_limit, $start, 'start', 'article_cid=' . $article_cid . '&article_status=' . $article_status);
+                $nav = new \XoopsPageNav($article_count, $nb_limit, $start, 'start', 'article_cid=' . $article_cid . '&article_status=' . $article_status);
                 $xoopsTpl->assign('nav_menu', $nav->renderNav(4));
             }
         } else {
@@ -205,7 +205,7 @@ switch ($op) {
                 }
                 if ($articleHandler->delete($obj)) {
                     //Del logo
-                    if ('blank.gif' != $obj->getVar('article_logo')) {
+                    if ('blank.gif' !== $obj->getVar('article_logo')) {
                         $urlfile = $path_logo_article . $obj->getVar('article_logo');
                         if (is_file($urlfile)) {
                             chmod($urlfile, 0777);

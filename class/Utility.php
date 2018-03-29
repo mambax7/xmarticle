@@ -50,8 +50,8 @@ class Utility
             return false;
             exit();
         }
-        $criteria = new CriteriaCompo();
-        $criteria->add(new Criteria('fielddata_aid', $article_id));
+        $criteria = new \CriteriaCompo();
+        $criteria->add(new \Criteria('fielddata_aid', $article_id));
         $fielddata_count = $fielddataHandler->getCount($criteria);
         if ($fielddata_count > 0) {
             $fielddataHandler->deleteAll($criteria);
@@ -107,11 +107,11 @@ class Utility
                 $fieldname_bdd = 'fielddata_value4';
                 break;
         }
-        $criteria = new CriteriaCompo();
-        $criteria->add(new Criteria('fielddata_fid', $fielddata_fid));
-        $criteria->add(new Criteria('fielddata_aid', $fielddata_aid));
+        $criteria = new \CriteriaCompo();
+        $criteria->add(new \Criteria('fielddata_fid', $fielddata_fid));
+        $criteria->add(new \Criteria('fielddata_aid', $fielddata_aid));
         $error_message = '';
-        if ('select_multi' == $field_type || 'checkbox' == $field_type) {
+        if ('select_multi' === $field_type || 'checkbox' === $field_type) {
             $fielddataHandler->deleteAll($criteria);
             foreach (array_keys($fielddata_value) as $i) {
                 $obj = $fielddataHandler->create();
@@ -149,9 +149,9 @@ class Utility
     public static function getFielddata($fielddata_aid = 0, $fielddata_fid = 0)
     {
         include __DIR__ . '/../include/common.php';
-        $criteria = new CriteriaCompo();
-        $criteria->add(new Criteria('fielddata_aid', $fielddata_aid));
-        $criteria->add(new Criteria('fielddata_fid', $fielddata_fid));
+        $criteria = new \CriteriaCompo();
+        $criteria->add(new \Criteria('fielddata_aid', $fielddata_aid));
+        $criteria->add(new \Criteria('fielddata_fid', $fielddata_fid));
         $fielddata_arr = $fielddataHandler->getall($criteria);
         $value         = '';
         foreach (array_keys($fielddata_arr) as $i) {
@@ -183,17 +183,17 @@ class Utility
         if (0 != count($fields)) {
             include __DIR__ . '/../include/common.php';
             // field
-            $criteria = new CriteriaCompo();
+            $criteria = new \CriteriaCompo();
             $criteria->setSort('field_weight ASC, field_name');
             $criteria->setOrder('ASC');
-            $criteria->add(new Criteria('field_id', '(' . implode(',', $fields) . ')', 'IN'));
+            $criteria->add(new \Criteria('field_id', '(' . implode(',', $fields) . ')', 'IN'));
             $field_arr = $fieldHandler->getall($criteria);
             foreach (array_keys($field_arr) as $i) {
                 $fielddata_value = '';
                 // fielddata
-                $criteria = new CriteriaCompo();
-                $criteria->add(new Criteria('fielddata_fid', $field_arr[$i]->getVar('field_id')));
-                $criteria->add(new Criteria('fielddata_aid', $fielddata_aid));
+                $criteria = new \CriteriaCompo();
+                $criteria->add(new \Criteria('fielddata_fid', $field_arr[$i]->getVar('field_id')));
+                $criteria->add(new \Criteria('fielddata_aid', $fielddata_aid));
                 $fielddata_arr = $fielddataHandler->getall($criteria);
                 foreach (array_keys($fielddata_arr) as $j) {
                     switch ($field_arr[$i]->getVar('field_type')) {
@@ -260,10 +260,10 @@ class Utility
     {
         include __DIR__ . '/../include/common.php';
         $article_name = '';
-        $criteria     = new CriteriaCompo();
+        $criteria     = new \CriteriaCompo();
         $criteria->setSort('article_name');
         $criteria->setOrder('ASC');
-        $criteria->add(new Criteria('article_cid', $category_id));
+        $criteria->add(new \Criteria('article_cid', $category_id));
         $article_arr = $articleHandler->getall($criteria);
         if (count($article_arr) > 0) {
             $article_name .= _MA_XMARTICLE_CATEGORY_WARNINGDELARTICLE . '<br>';
