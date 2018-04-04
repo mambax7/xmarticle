@@ -286,7 +286,7 @@ class Utility
             redirect_header($action, 2, _MA_XMARTICLE_ERROR_NOARTICLE);
         }
         $newobj  = $articleHandler->create();
-        $rand_id = rand(1, 10000);
+        $rand_id = mt_rand(1, 10000);
         $newobj->setVar('article_name', _MA_XMARTICLE_CLONE_NAME . $rand_id . '- ' . $article->getVar('article_name'));
         $newobj->setVar('article_reference', $article->getVar('article_reference') . '-' . $rand_id);
         $newobj->setVar('article_description', $article->getVar('article_description', 'e'));
