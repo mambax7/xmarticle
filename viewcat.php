@@ -62,7 +62,7 @@ $criteria->setLimit($nb_limit);
 $criteria->add(new \Criteria('article_status', 1));
 $criteria->add(new \Criteria('article_cid', $category_id));
 $article_count = $articleHandler->getCount($criteria);
-$article_arr = $articleHandler->getall($criteria);
+$article_arr = $articleHandler->getAll($criteria);
 if ($article_count > 0) {
     foreach (array_keys($article_arr) as $i) {
         $article_id                 = $article_arr[$i]->getVar('article_id');

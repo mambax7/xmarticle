@@ -71,7 +71,7 @@ $article_img = $article->getVar('article_logo') ?: 'blank.gif';
 $xoopsTpl->assign('logo', $url_logo_article . $article_img);
 
 // Field
-$field_arr   = XmarticleUtility::getArticleFields($category->getVar('category_fields'), $article_id);
+$field_arr   = Xmarticle\Utility::getArticleFields($category->getVar('category_fields'), $article_id);
 $field_count = count($field_arr);
 if ($field_count > 0) {
     $count     = 1;

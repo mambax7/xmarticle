@@ -67,8 +67,8 @@ class Utility
         $helper        = Xmf\Module\Helper::getHelper('xmarticle');
         $moduleHandler = $helper->getModule();
         $groups        = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-        $gpermHandler  = xoops_getHandler('groupperm');
-        $categories    = $gpermHandler->getItemIds($permtype, $groups, $moduleHandler->getVar('mid'));
+        $grouppermHandler  = xoops_getHandler('groupperm');
+        $categories    = $grouppermHandler->getItemIds($permtype, $groups, $moduleHandler->getVar('mid'));
 
         return $categories;
     }
@@ -125,7 +125,7 @@ class Utility
                 }
             }
         } else {
-            $fielddata_arr = $fielddataHandler->getall($criteria);
+            $fielddata_arr = $fielddataHandler->getAll($criteria);
             if (0 == count($fielddata_arr)) {
                 $obj = $fielddataHandler->create();
             } else {
@@ -152,7 +152,7 @@ class Utility
         $criteria = new \CriteriaCompo();
         $criteria->add(new \Criteria('fielddata_aid', $fielddata_aid));
         $criteria->add(new \Criteria('fielddata_fid', $fielddata_fid));
-        $fielddata_arr = $fielddataHandler->getall($criteria);
+        $fielddata_arr = $fielddataHandler->getAll($criteria);
         $value         = '';
         foreach (array_keys($fielddata_arr) as $i) {
             if ('' != $fielddata_arr[$i]->getVar('fielddata_value1')) {
@@ -187,14 +187,14 @@ class Utility
             $criteria->setSort('field_weight ASC, field_name');
             $criteria->setOrder('ASC');
             $criteria->add(new \Criteria('field_id', '(' . implode(',', $fields) . ')', 'IN'));
-            $field_arr = $fieldHandler->getall($criteria);
+            $field_arr = $fieldHandler->getAll($criteria);
             foreach (array_keys($field_arr) as $i) {
                 $fielddata_value = '';
                 // fielddata
                 $criteria = new \CriteriaCompo();
                 $criteria->add(new \Criteria('fielddata_fid', $field_arr[$i]->getVar('field_id')));
                 $criteria->add(new \Criteria('fielddata_aid', $fielddata_aid));
-                $fielddata_arr = $fielddataHandler->getall($criteria);
+                $fielddata_arr = $fielddataHandler->getAll($criteria);
                 foreach (array_keys($fielddata_arr) as $j) {
                     switch ($field_arr[$i]->getVar('field_type')) {
                         case 'vs_text':
@@ -264,7 +264,7 @@ class Utility
         $criteria->setSort('article_name');
         $criteria->setOrder('ASC');
         $criteria->add(new \Criteria('article_cid', $category_id));
-        $article_arr = $articleHandler->getall($criteria);
+        $article_arr = $articleHandler->getAll($criteria);
         if (count($article_arr) > 0) {
             $article_name .= _MA_XMARTICLE_CATEGORY_WARNINGDELARTICLE . '<br>';
             foreach (array_keys($article_arr) as $i) {

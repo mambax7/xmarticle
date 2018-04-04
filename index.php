@@ -26,11 +26,11 @@ require_once XOOPS_ROOT_PATH . '/header.php';
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname', 'n') . '/assets/css/styles.css', null);
 
 // Get Permission to view
-$viewPermissionCat = XmarticleUtility::getPermissionCat('xmarticle_view');
+$viewPermissionCat = Xmarticle\Utility::getPermissionCat('xmarticle_view');
 // Get article
 $criteria = new \CriteriaCompo();
 $criteria->add(new \Criteria('article_status', 1));
-$article_arr = $articleHandler->getall($criteria);
+$article_arr = $articleHandler->getAll($criteria);
 
 // Get start pager
 $start = Request::getInt('start', 0);
@@ -55,7 +55,7 @@ if ($category_count > 0 && !empty($viewPermissionCat)) {
         $category['name']         = $category_arr[$i]->getVar('category_name');
         $category['reference']    = $category_arr[$i]->getVar('category_reference');
         $category['description']  = $category_arr[$i]->getVar('category_description', 'show');
-        $category['totalarticle'] = sprintf(_MA_XMARTICLE_CATEGORY_THEREAREARTICLE, XmarticleUtility::articlePerCat($category_id, $article_arr));
+        $category['totalarticle'] = sprintf(_MA_XMARTICLE_CATEGORY_THEREAREARTICLE, Xmarticle\Utility::articlePerCat($category_id, $article_arr));
         $category_img             = $category_arr[$i]->getVar('category_logo') ?: 'blank.gif';
         $category['logo']         = $url_logo_category . $category_img;
         $xoopsTpl->append_by_ref('categories', $category);

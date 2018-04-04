@@ -150,11 +150,11 @@ switch ($op) {
                     // Del article and fielddata
                     $criteria = new \CriteriaCompo();
                     $criteria->add(new \Criteria('article_cid', $category_id));
-                    $article_arr = $articleHandler->getall($criteria);
+                    $article_arr = $articleHandler->getAll($criteria);
                     if (count($article_arr) > 0) {
                         foreach (array_keys($article_arr) as $i) {
                             // Del fielddata
-                            XmarticleUtility::delFilddataArticle($article_arr[$i]->getVar('article_id'));
+                            Xmarticle\Utility::delFilddataArticle($article_arr[$i]->getVar('article_id'));
                             // Del article
                             $objarticle = $articleHandler->get($article_arr[$i]->getVar('article_id'));
                             $articleHandler->delete($objarticle) or $objarticle->getHtmlErrors();
@@ -168,7 +168,7 @@ switch ($op) {
             } else {
                 $category_img = $obj->getVar('category_logo') ?: 'blank.gif';
                 xoops_confirm(['surdel' => true, 'category_id' => $category_id, 'op' => 'del'], $_SERVER['REQUEST_URI'], sprintf(_MA_XMARTICLE_CATEGORY_SUREDEL, $obj->getVar('category_name')) . '<br>
-                                    <img src="' . $url_logo_category . $category_img . '" title="' . $obj->getVar('category_name') . '"><br>' . XmarticleUtility::articleNamePerCat($category_id));
+                                    <img src="' . $url_logo_category . $category_img . '" title="' . $obj->getVar('category_name') . '"><br>' . Xmarticle\Utility::articleNamePerCat($category_id));
             }
         }
         

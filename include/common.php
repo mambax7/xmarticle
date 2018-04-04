@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xmf\Module\Admin;
+
 /**
  * xmarticle module
  *
@@ -16,7 +18,7 @@
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author          Mage Gregory (AKA Mage)
  */
-class_exists('\Xmf\Module\Admin') || die('XMF is required.');
+class_exists(Admin::class) || die('XMF is required.');
 
 use Xmf\Module\Helper;
 

@@ -46,7 +46,7 @@ if ('' == $reset) {
 $start = Request::getInt('start', 0);
 
 // Get Permission to view cat
-$viewPermissionCat = XmarticleUtility::getPermissionCat('xmarticle_view');
+$viewPermissionCat = Xmarticle\Utility::getPermissionCat('xmarticle_view');
 $criteria          = new \CriteriaCompo();
 $criteria->setSort('category_weight ASC, category_name');
 $criteria->setOrder('ASC');

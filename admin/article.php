@@ -165,7 +165,7 @@ switch ($op) {
         if (0 == $article_id) {
             $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOARTICLE);
         } else {
-            $cloneobj = XmarticleUtility::cloneArticle($article_id);
+            $cloneobj = Xmarticle\Utility::cloneArticle($article_id);
             $form = $cloneobj->getForm($cloneobj->getVar('article_cid'), $article_id, 'article.php');
             $xoopsTpl->assign('form', $form->render());
         }
@@ -213,7 +213,7 @@ switch ($op) {
                         }
                     }
                     //Del fielddata
-                    XmarticleUtility::delFilddataArticle($article_id);
+                    Xmarticle\Utility::delFilddataArticle($article_id);
                     redirect_header('article.php', 2, _MA_XMARTICLE_REDIRECT_SAVE);
                 } else {
                     $xoopsTpl->assign('error_message', $obj->getHtmlErrors());

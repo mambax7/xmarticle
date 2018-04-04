@@ -63,7 +63,7 @@ class xmarticle_article extends XoopsObject
         include __DIR__ . '/../include/common.php';
 
         // Get Permission to submit
-        $submitPermissionCat = XmarticleUtility::getPermissionCat('xmarticle_submit');
+        $submitPermissionCat = Xmarticle\Utility::getPermissionCat('xmarticle_submit');
         
         $form = new \XoopsThemeForm(_MA_XMARTICLE_ADD, 'form', $action, 'post', true);
         // type
@@ -75,7 +75,7 @@ class xmarticle_article extends XoopsObject
         if (!empty($submitPermissionCat)) {
             $criteria->add(new \Criteria('category_id', '(' . implode(',', $submitPermissionCat) . ')', 'IN'));
         }
-        $category_arr = $categoryHandler->getall($criteria);
+        $category_arr = $categoryHandler->getAll($criteria);
         if (0 == count($category_arr) || empty($submitPermissionCat)) {
             redirect_header($action, 3, _MA_XMARTICLE_ERROR_NOACESSCATEGORY);
         }
@@ -91,9 +91,11 @@ class xmarticle_article extends XoopsObject
     }
 
     /**
-    * @param bool $action
-    * @return XoopsThemeForm
-    */
+     * @param int  $article_cid
+     * @param int  $old_article_cid
+     * @param bool $action
+     * @return XoopsThemeForm
+     */
     public function getForm($article_cid = 0, $old_article_cid = 0, $action = false)
     {
         global $xoopsUser;
@@ -183,7 +185,7 @@ class xmarticle_article extends XoopsObject
         $criteria->setOrder('ASC');
         $criteria->add(new \Criteria('field_id', '(' . implode(',', $category->getVar('category_fields')) . ')', 'IN'));
         $criteria->add(new \Criteria('field_status', 0, '!='));
-        $field_arr = $fieldHandler->getall($criteria);
+        $field_arr = $fieldHandler->getAll($criteria);
         foreach (array_keys($field_arr) as $i) {
             $caption = $field_arr[$i]->getVar('field_name') . '<br><span style="font-weight:normal;">' . $field_arr[$i]->getVar('field_description', 'show') . '</span>';
             if (1 == $field_arr[$i]->getVar('field_required')) {
@@ -191,7 +193,7 @@ class xmarticle_article extends XoopsObject
             } else {
                 $required = false;
             }
-            $value = XmarticleUtility::getFielddata($article_cid_fielddata, $field_arr[$i]->getVar('field_id'));
+            $value = Xmarticle\Utility::getFielddata($article_cid_fielddata, $field_arr[$i]->getVar('field_id'));
             if ('' == $value) {
                 if ('text' === $field_arr[$i]->getVar('field_type')) {
                     $value = $field_arr[$i]->getVar('field_default', 'e');
@@ -310,6 +312,8 @@ class xmarticle_article extends XoopsObject
     }
 
     /**
+     * @param      $articleHandler
+     * @param bool $action
      * @return mixed
      */
     public function saveArticle($articleHandler, $action = false)
@@ -389,14 +393,14 @@ class xmarticle_article extends XoopsObject
                 $criteria->setOrder('ASC');
                 $criteria->add(new \Criteria('field_id', '(' . implode(',', $category->getVar('category_fields')) . ')', 'IN'));
                 $criteria->add(new \Criteria('field_status', 0, '!='));
-                $field_arr = $fieldHandler->getall($criteria);
+                $field_arr = $fieldHandler->getAll($criteria);
                 if (0 == $this->get_new_enreg()) {
                     $fielddata_aid = $this->getVar('article_id');
                 } else {
                     $fielddata_aid = $this->get_new_enreg();
                 }
                 foreach (array_keys($field_arr) as $i) {
-                    $error_message .= XmarticleUtility::saveFielddata($field_arr[$i]->getVar('field_type'), $field_arr[$i]->getVar('field_id'), $fielddata_aid, $_POST['field_' . $i]);
+                    $error_message .= Xmarticle\Utility::saveFielddata($field_arr[$i]->getVar('field_type'), $field_arr[$i]->getVar('field_id'), $fielddata_aid, $_POST['field_' . $i]);
                 }
                 //xmdoc
                 if (xoops_isActiveModule('xmdoc') && 1 == $helper->getConfig('general_xmdoc', 0)) {

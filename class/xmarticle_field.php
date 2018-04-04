@@ -57,7 +57,7 @@ class xmarticle_field extends XoopsObject
         $form = new \XoopsThemeForm(_MA_XMARTICLE_ADD, 'form', $action, 'post', true);
         // type
         $field_type = new \XoopsFormSelect(_MA_XMARTICLE_FIELD_TYPE, 'field_type', $this->getVar('field_type'));
-        $field_arr  = XmarticleUtility::fieldTypes();
+        $field_arr  = Xmarticle\Utility::fieldTypes();
         foreach ($field_arr as $key => $value) {
             $field_type->addOption($key, $value);
         }
@@ -70,7 +70,8 @@ class xmarticle_field extends XoopsObject
     }
 
     /**
-     * @param bool $action
+     * @param string $field_type
+     * @param bool   $action
      * @return XoopsThemeForm
      */
     public function getForm($field_type = '', $action = false)
@@ -80,7 +81,7 @@ class xmarticle_field extends XoopsObject
             $action = $_SERVER['REQUEST_URI'];
         }
         require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-        $field_arr = XmarticleUtility::fieldTypes();
+        $field_arr = Xmarticle\Utility::fieldTypes();
         //form title
         $title = $this->isNew() ? sprintf(_MA_XMARTICLE_ADD) : sprintf(_MA_XMARTICLE_EDIT);
 
@@ -257,6 +258,8 @@ class xmarticle_field extends XoopsObject
     }
 
     /**
+     * @param      $fieldHandler
+     * @param bool $action
      * @return mixed
      */
     public function saveField($fieldHandler, $action = false)

@@ -54,6 +54,8 @@ class xmarticle_category extends XoopsObject
     }
 
     /**
+     * @param      $categoryHandler
+     * @param bool $action
      * @return mixed
      */
     public function saveCategory($categoryHandler, $action = false)
@@ -212,7 +214,7 @@ class xmarticle_category extends XoopsObject
             $remove_fields->columns = 3;
             $criteria               = new \CriteriaCompo();
             $criteria->add(new \Criteria('field_id', '(' . implode(',', $fields) . ')', 'IN'));
-            $field_arr = $fieldHandler->getall($criteria);
+            $field_arr = $fieldHandler->getAll($criteria);
             foreach (array_keys($field_arr) as $key) {
                 $field_temp_arr[$key] = $field_arr[$key]->getVar('field_name');
             }
@@ -225,7 +227,7 @@ class xmarticle_category extends XoopsObject
         $criteria->setSort('field_weight ASC, field_name');
         $criteria->setOrder('ASC');
         $criteria->add(new \Criteria('field_status', 0, '!='));
-        $field_arr  = $fieldHandler->getall($criteria);
+        $field_arr  = $fieldHandler->getAll($criteria);
         $sel_option = '<option value=""> </option>';
         foreach (array_keys($field_arr) as $i) {
             $sel_option .= '<option value="' . $field_arr[$i]->getVar('field_id') . '">' . $field_arr[$i]->getVar('field_name') . '</option>';

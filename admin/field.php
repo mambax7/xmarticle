@@ -45,7 +45,7 @@ switch ($op) {
         $field_arr   = $fieldHandler->getAll($criteria);
         $field_count = $fieldHandler->getCount($criteria);
         $xoopsTpl->assign('field_count', $field_count);
-        $field_type_arr = XmarticleUtility::fieldTypes();
+        $field_type_arr = Xmarticle\Utility::fieldTypes();
         if ($field_count > 0) {
             foreach (array_keys($field_arr) as $i) {
                 $field_id             = $field_arr[$i]->getVar('field_id');
