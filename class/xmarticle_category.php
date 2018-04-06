@@ -65,7 +65,7 @@ class xmarticle_category extends XoopsObject
         }
         $error_message = '';
         // test error
-        if (0 == (int)$_REQUEST['category_weight'] && '0' != $_REQUEST['category_weight']) {
+        if (0 == \Xmf\Request::getInt('category_weight', 0, 'REQUEST') && '0' != $_REQUEST['category_weight']) {
             $error_message .= _MA_XMARTICLE_ERROR_WEIGHT . '<br>';
             $this->setVar('category_weight', 0);
         }
