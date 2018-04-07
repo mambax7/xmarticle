@@ -101,7 +101,7 @@ class xmarticle_category extends XoopsObject
         }
 
         // add fields
-        if (!empty($_REQUEST['addField'])) {
+       if (\Xmf\Request::hasVar('addField', 'REQUEST')) {
             $i = 0;
             foreach ($_REQUEST['addField'] as $field) {
                 if ('' == $field) {

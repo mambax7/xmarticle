@@ -305,7 +305,7 @@ class xmarticle_field extends XoopsObject
                 $options = $this->getVar('field_options');
                 $default = [];
                 // add options and default
-                if (!empty($_REQUEST['addOption'])) {
+                if (\Xmf\Request::hasVar('addOption', 'REQUEST')) {
                     $i = 0;
                     if ('select_multi' === $field_type || 'checkbox' === $field_type) {
                         $field_default = Xmf\Request::getArray('field_default', []);
