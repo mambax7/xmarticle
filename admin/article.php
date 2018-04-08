@@ -34,7 +34,7 @@ switch ($op) {
         $xoTheme->addScript('modules/system/js/admin.js');
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_ARTICLE_ADD, 'article.php?op=add', 'add');
-        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());
+        $xoopsTpl->assign('renderbutton', $moduleAdmin->displayButton());
         // Get start pager
         $start = Request::getInt('start', 0);
         $xoopsTpl->assign('start', $start);
@@ -120,7 +120,7 @@ switch ($op) {
     case 'add':
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_ARTICLE_LIST, 'article.php', 'list');
-        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());
+        $xoopsTpl->assign('renderbutton', $moduleAdmin->displayButton());
         // Form
         $obj  = $articleHandler->create();
         $form = $obj->getFormCategory('article.php');
@@ -131,7 +131,7 @@ switch ($op) {
     case 'loadarticle':
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_ARTICLE_LIST, 'article.php', 'list');
-        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());
+        $xoopsTpl->assign('renderbutton', $moduleAdmin->displayButton());
         $article_cid = Request::getInt('article_cid', 0);
         if (0 == $article_cid) {
             $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOCATEGORY);
@@ -146,7 +146,7 @@ switch ($op) {
     case 'edit':
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_ARTICLE_LIST, 'article.php', 'list');
-        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());
+        $xoopsTpl->assign('renderbutton', $moduleAdmin->displayButton());
         // Form
         $article_id = Request::getInt('article_id', 0);
         if (0 == $article_id) {

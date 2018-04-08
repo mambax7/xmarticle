@@ -33,7 +33,7 @@ switch ($op) {
         $xoTheme->addScript('modules/system/js/admin.js');
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_FIELD_ADD, 'field.php?op=add', 'add');
-        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());
+        $xoopsTpl->assign('renderbutton', $moduleAdmin->displayButton());
         // Get start pager
         $start = Request::getInt('start', 0);
         // Criteria
@@ -74,7 +74,7 @@ switch ($op) {
     case 'add':
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_FIELD_LIST, 'field.php', 'list');
-        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());
+        $xoopsTpl->assign('renderbutton', $moduleAdmin->displayButton());
         // Form
         $obj  = $fieldHandler->create();
         $form = $obj->getFormTypes();
@@ -85,7 +85,7 @@ switch ($op) {
     case 'loadtype':
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_FIELD_LIST, 'field.php', 'list');
-        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());
+        $xoopsTpl->assign('renderbutton', $moduleAdmin->displayButton());
         $field_type = Request::getString('field_type', '');
         if ('' == $field_type) {
             $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOFIELDTYPE);
@@ -100,7 +100,7 @@ switch ($op) {
     case 'edit':
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_FIELD_LIST, 'field.php', 'list');
-        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());
+        $xoopsTpl->assign('renderbutton', $moduleAdmin->displayButton());
         // Form
         $field_id = Request::getInt('field_id', 0);
         if (0 == $field_id) {

@@ -33,7 +33,7 @@ switch ($op) {
         $xoTheme->addScript('modules/system/js/admin.js');
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_CATEGORY_ADD, 'category.php?op=add', 'add');
-        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());
+        $xoopsTpl->assign('renderbutton', $moduleAdmin->displayButton());
         // Get start pager
         $start = Request::getInt('start', 0);
         // Criteria
@@ -73,7 +73,7 @@ switch ($op) {
     case 'add':
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_CATEGORY_LIST, 'category.php', 'list');
-        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());
+        $xoopsTpl->assign('renderbutton', $moduleAdmin->displayButton());
         // Form
         $obj  = $categoryHandler->create();
         $form = $obj->getForm();
@@ -84,7 +84,7 @@ switch ($op) {
     case 'edit':
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_CATEGORY_LIST, 'category.php', 'list');
-        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());
+        $xoopsTpl->assign('renderbutton', $moduleAdmin->displayButton());
         // Form
         $category_id = Request::getInt('category_id', 0);
         if (0 == $category_id) {

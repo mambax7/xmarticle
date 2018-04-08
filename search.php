@@ -182,7 +182,7 @@ if (0 != $s_cat) {
                         }
                         break;
                 }
-                if (true == $result) {
+                if (true === $result) {
                     if (count($fielddata_aid_arr) > 0) {
                         $criteria->add(new \Criteria('fielddata_aid', '(' . implode(',', $fielddata_aid_arr) . ')', 'IN'));
                         $fielddata_aid_arr = [];

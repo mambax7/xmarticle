@@ -260,7 +260,7 @@ class xmarticle_article extends XoopsObject
             }
             unset($value);
         }
-        if (true == $helper->isUserAdmin()) {
+        if (true === $helper->isUserAdmin()) {
             if ($this->isNew()) {
                 $userid = !empty($xoopsUser) ? $xoopsUser->getVar('uid') : 0;
             } else {
@@ -292,7 +292,7 @@ class xmarticle_article extends XoopsObject
         // permission Auto approve submitted article
         $permHelper = new \Xmf\Module\Helper\Permission();
         $permission = $permHelper->checkPermission('xmarticle_other', 8);
-        if (true == $permission || true == $helper->isUserAdmin()) {
+        if (true === $permission || true === $helper->isUserAdmin()) {
             // status
             $form_status = new \XoopsFormRadio(_MA_XMARTICLE_STATUS, 'article_status', $status);
             $options     = [1 => _MA_XMARTICLE_STATUS_A, 0 => _MA_XMARTICLE_STATUS_NA, 2 => _MA_XMARTICLE_WFV];
