@@ -22,7 +22,7 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
 /**
  * Class xmarticle_field
  */
-class xmarticle_field extends XoopsObject
+class xmarticle_field extends \XoopsObject
 {
     // constructor
     /**
@@ -395,7 +395,7 @@ class xmarticle_field extends XoopsObject
 /**
  * Class xmarticlexmarticle_fieldHandler
  */
-class xmarticlexmarticle_fieldHandler extends XoopsPersistableObjectHandler
+class xmarticlexmarticle_fieldHandler extends \XoopsPersistableObjectHandler
 {
     /**
      * xmarticlexmarticle_fieldHandler constructor.

@@ -23,15 +23,13 @@ require_once $path . '/mainfile.php';
 require_once $path . '/include/cp_functions.php';
 require_once $path . '/include/cp_header.php';
 require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
-require_once __DIR__ . '/../include/common.php';
+require_once  dirname(__DIR__) . '/include/common.php';
 
 xoops_load('utility', basename(dirname(__DIR__)));
 
 class_exists(Admin::class) || die('XMF is required.');
 
-use Xmf\Module\Helper;
-
-$helper = Helper::getHelper(basename(dirname(__DIR__)));
+$helper  = \XoopsModules\Xmarticle\Helper::getInstance();
 
 // Load language files
 $helper->loadLanguage('main');

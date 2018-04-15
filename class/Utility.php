@@ -45,7 +45,7 @@ class Utility
 
     public static function delFilddataArticle($article_id = 0)
     {
-        include __DIR__ . '/../include/common.php';
+        include  dirname(__DIR__) . '/include/common.php';
         if (0 == $article_id) {
             return false;
             exit();
@@ -81,7 +81,7 @@ class Utility
         if (0 == $fielddata_fid || 0 == $fielddata_aid || '' == $field_type) {
             redirect_header($action, 2, _MA_XMARTICLE_ERROR);
         }
-        include __DIR__ . '/../include/common.php';
+        include  dirname(__DIR__) . '/include/common.php';
         switch ($field_type) {
             case 'vs_text':
             case 's_text':
@@ -148,7 +148,7 @@ class Utility
 
     public static function getFielddata($fielddata_aid = 0, $fielddata_fid = 0)
     {
-        include __DIR__ . '/../include/common.php';
+        include  dirname(__DIR__) . '/include/common.php';
         $criteria = new \CriteriaCompo();
         $criteria->add(new \Criteria('fielddata_aid', $fielddata_aid));
         $criteria->add(new \Criteria('fielddata_fid', $fielddata_fid));
@@ -181,7 +181,7 @@ class Utility
     {
         $values = [];
         if (0 != count($fields)) {
-            include __DIR__ . '/../include/common.php';
+            include  dirname(__DIR__) . '/include/common.php';
             // field
             $criteria = new \CriteriaCompo();
             $criteria->setSort('field_weight ASC, field_name');
@@ -258,7 +258,7 @@ class Utility
 
     public static function articleNamePerCat($category_id)
     {
-        include __DIR__ . '/../include/common.php';
+        include  dirname(__DIR__) . '/include/common.php';
         $article_name = '';
         $criteria     = new \CriteriaCompo();
         $criteria->setSort('article_name');
@@ -280,7 +280,7 @@ class Utility
         if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
-        include __DIR__ . '/../include/common.php';
+        include  dirname(__DIR__) . '/include/common.php';
         $article = $articleHandler->get($article_id);
         if (0 == count($article)) {
             redirect_header($action, 2, _MA_XMARTICLE_ERROR_NOARTICLE);

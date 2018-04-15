@@ -20,9 +20,8 @@ use Xmf\Module\Admin;
  */
 class_exists(Admin::class) || die('XMF is required.');
 
-use Xmf\Module\Helper;
 
-$helper = Helper::getHelper(basename(dirname(__DIR__)));
+$helper  = \XoopsModules\Xmarticle\Helper::getInstance();
 
 // Get handler
 $categoryHandler  = $helper->getHandler('xmarticle_category');

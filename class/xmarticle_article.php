@@ -18,15 +18,13 @@
  */
 
 use XoopsModules\Xmarticle;
-/** @var Xmarticle\Helper $helper */
-$helper = Xmarticle\Helper::getInstance();
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Class xmarticle_article
  */
-class xmarticle_article extends XoopsObject
+class xmarticle_article extends \XoopsObject
 {
     
     // constructor
@@ -60,7 +58,7 @@ class xmarticle_article extends XoopsObject
             $action = $_SERVER['REQUEST_URI'];
         }
         require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-        include __DIR__ . '/../include/common.php';
+        include  dirname(__DIR__) . '/include/common.php';
 
         // Get Permission to submit
         $submitPermissionCat = Xmarticle\Utility::getPermissionCat('xmarticle_submit');
@@ -106,7 +104,7 @@ class xmarticle_article extends XoopsObject
             $action = $_SERVER['REQUEST_URI'];
         }
         require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-        include __DIR__ . '/../include/common.php';
+        include  dirname(__DIR__) . '/include/common.php';
         
         //form title
         $title = $this->isNew() ? sprintf(_MA_XMARTICLE_ADD) : sprintf(_MA_XMARTICLE_EDIT);
@@ -159,7 +157,7 @@ class xmarticle_article extends XoopsObject
         $imgtray_img     = new \XoopsFormElementTray(_MA_XMARTICLE_ARTICLE_LOGOFILE . '<br><br>' . sprintf(_MA_XMARTICLE_ARTICLE_UPLOADSIZE, $upload_size / 1000), '<br>');
         $imgpath_img     = sprintf(_MA_XMARTICLE_ARTICLE_FORMPATH, $uploadirectory);
         $imageselect_img = new \XoopsFormSelect($imgpath_img, 'article_logo', $blank_img);
-        $image_array_img = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
+        $image_array_img = \XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
         $imageselect_img->addOption($blank_img, $blank_img);
         foreach ($image_array_img as $image_img) {
             $imageselect_img->addOption((string)$image_img, $image_img);
@@ -322,7 +320,7 @@ class xmarticle_article extends XoopsObject
         if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
-        include __DIR__ . '/../include/common.php';
+        include  dirname(__DIR__) . '/include/common.php';
         $error_message = '';
         //logo
         $uploadirectory = '/xmarticle/images/article';
@@ -437,7 +435,7 @@ class xmarticle_article extends XoopsObject
 /**
  * Class xmarticlexmarticle_articleHandler
  */
-class xmarticlexmarticle_articleHandler extends XoopsPersistableObjectHandler
+class xmarticlexmarticle_articleHandler extends \XoopsPersistableObjectHandler
 {
     /**
      * xmarticlexmarticle_articleHandler constructor.

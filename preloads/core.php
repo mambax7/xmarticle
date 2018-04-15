@@ -20,7 +20,7 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
 /**
  * Class XmarticleCorePreload
  */
-class XmarticleCorePreload extends XoopsPreloadItem
+class XmarticleCorePreload extends \XoopsPreloadItem
 {
     // to add PSR-4 autoloader
     /**

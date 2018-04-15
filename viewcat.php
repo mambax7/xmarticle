@@ -72,7 +72,7 @@ if ($article_count > 0) {
         $article['reference']       = $article_arr[$i]->getVar('article_reference');
         $article['description']     = \Xmf\Metagen::generateDescription($article_arr[$i]->getVar('article_description', 'show'), 25);
         $article['date']            = formatTimestamp($article_arr[$i]->getVar('article_date'), 's');
-        $article['author']          = XoopsUser::getUnameFromId($article_arr[$i]->getVar('article_userid'));
+        $article['author']          = \XoopsUser::getUnameFromId($article_arr[$i]->getVar('article_userid'));
         $article_img                = $article_arr[$i]->getVar('article_logo') ?: 'blank.gif';
         $article['logo']            = $url_logo_article .  $article_img;
         $xoopsTpl->append('article', $article);

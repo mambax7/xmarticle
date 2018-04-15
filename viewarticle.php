@@ -66,7 +66,7 @@ $xoopsTpl->assign('date', formatTimestamp($article->getVar('article_date'), 's')
 if (0 != $article->getVar('article_mdate')) {
     $xoopsTpl->assign('mdate', formatTimestamp($article->getVar('article_mdate'), 's'));
 }
-$xoopsTpl->assign('author', XoopsUser::getUnameFromId($article->getVar('article_userid')));
+$xoopsTpl->assign('author', \XoopsUser::getUnameFromId($article->getVar('article_userid')));
 $article_img = $article->getVar('article_logo') ?: 'blank.gif';
 $xoopsTpl->assign('logo', $url_logo_article . $article_img);
 
