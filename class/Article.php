@@ -61,6 +61,12 @@ class Article extends \XoopsObject
         require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
         require_once dirname(__DIR__) . '/include/common.php';
 
+        /** @var \XoopsModules\Xmarticle\Helper $helper */
+        $helper  = \XoopsModules\Xmarticle\Helper::getInstance();
+        // Get handler
+        $categoryHandler  = $helper->getHandler('Category');
+
+
         // Get Permission to submit
         $submitPermissionCat = Xmarticle\Utility::getPermissionCat('xmarticle_submit');
         
@@ -107,6 +113,10 @@ class Article extends \XoopsObject
         }
         require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
         require_once dirname(__DIR__) . '/include/common.php';
+
+        // Get handler
+        $categoryHandler  = $helper->getHandler('Category');
+        $fieldHandler     = $helper->getHandler('Field');
         
         //form title
         $title = $this->isNew() ? sprintf(_MA_XMARTICLE_ADD) : sprintf(_MA_XMARTICLE_EDIT);
@@ -323,6 +333,11 @@ class Article extends \XoopsObject
             $action = $_SERVER['REQUEST_URI'];
         }
         require_once dirname(__DIR__) . '/include/common.php';
+        /** @var \XoopsModules\Xmarticle\Helper $helper */
+        $helper = \XoopsModules\Xmarticle\Helper::getInstance();
+        $categoryHandler  = $helper->getHandler('Category');
+        $fieldHandler     = $helper->getHandler('Field');
+
         $error_message = '';
         //logo
         $uploadirectory = '/xmarticle/images/article';

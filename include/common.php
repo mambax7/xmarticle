@@ -10,7 +10,7 @@
 */
 
 use Xmf\Module\Admin;
-
+use XoopsModules\Xmarticle;
 /**
  * xmarticle module
  *
@@ -18,7 +18,10 @@ use Xmf\Module\Admin;
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author          Mage Gregory (AKA Mage)
  */
+
 class_exists(Admin::class) || die('XMF is required.');
+
+include dirname(__DIR__) . '/preloads/autoloader.php';
 
 /** @var \XoopsModules\Xmarticle\Helper $helper */
 $helper  = \XoopsModules\Xmarticle\Helper::getInstance();

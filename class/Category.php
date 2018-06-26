@@ -18,6 +18,8 @@
  * @author          Mage Gregory (AKA Mage)
  */
 
+use  XoopsModules\Xmarticle;
+
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
@@ -55,7 +57,7 @@ class Category extends \XoopsObject
     }
 
     /**
-     * @param      $categoryHandler
+     * @param  \XoopsModules\Xmarticle\CategoryHandler    $categoryHandler
      * @param null|string $action
      * @return mixed
      */
@@ -210,6 +212,7 @@ class Category extends \XoopsObject
         $form->addElement(new \XoopsFormText(_MA_XMARTICLE_CATEGORY_WEIGHT, 'category_weight', 5, 5, $weight), true);
 
         // remove field
+        $fieldHandler= $helper->getHandler('Field');
         $fields = $this->getVar('category_fields');
         if (count($fields) > 0) {
             $remove_fields          = new \XoopsFormCheckBox(_MA_XMARTICLE_CATEGORY_REMOVEFIELDS, 'removeFields');
