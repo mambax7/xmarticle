@@ -46,7 +46,7 @@ class Field extends \XoopsObject
 
     /**
      * @param bool $action
-     * @return XoopsThemeForm
+     * @return \XoopsThemeForm
      */
     public function getFormTypes($action = false)
     {
@@ -73,7 +73,7 @@ class Field extends \XoopsObject
     /**
      * @param string $field_type
      * @param bool   $action
-     * @return XoopsThemeForm
+     * @return \XoopsThemeForm
      */
     public function getForm($field_type = '', $action = false)
     {

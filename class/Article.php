@@ -51,7 +51,7 @@ class Article extends \XoopsObject
 
     /**
      * @param bool $action
-     * @return XoopsThemeForm
+     * @return \XoopsThemeForm
      */
     public function getFormCategory($action = false)
     {
@@ -93,7 +93,7 @@ class Article extends \XoopsObject
      * @param int  $article_cid
      * @param int  $old_article_cid
      * @param bool $action
-     * @return XoopsThemeForm
+     * @return \XoopsThemeForm
      */
     public function getForm($article_cid = 0, $old_article_cid = 0, $action = false)
     {
