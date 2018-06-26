@@ -42,7 +42,7 @@ if (0 == $article_id) {
 $category = $categoryHandler->get($category_id);
 $article  = $articleHandler->get($article_id);
 
-if (0 == count($category)) {
+if (is_array($category) && 0 == count($category)) {
     redirect_header('index.php', 2, _MA_XMARTICLE_ERROR_NOCATEGORY);
 }
 
@@ -50,7 +50,7 @@ if (0 == $category->getVar('category_status') || 0 == $article->getVar('article_
     redirect_header('index.php', 2, _MA_XMARTICLE_ERROR_NACTIVE);
 }
 
-if (0 == count($article_id)) {
+if (is_array($article_id) && 0 == count($article_id)) {
     redirect_header('index.php', 2, _MA_XMARTICLE_ERROR_NOARTICLE);
 }
 // Category
