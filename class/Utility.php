@@ -34,6 +34,10 @@ class Utility
     use Common\FilesManagement; // Files Management Trait
 
     //--------------- Custom module methods -----------------------------
+
+    /**
+     * @return array
+     */
     public static function fieldTypes()
     {
         $types = [
@@ -54,6 +58,10 @@ class Utility
         return $types;
     }
 
+    /**
+     * @param int $article_id
+     * @return bool
+     */
     public static function delFilddataArticle($article_id = 0)
     {
         require_once dirname(__DIR__) . '/include/common.php';
@@ -71,6 +79,10 @@ class Utility
         return true;
     }
 
+    /**
+     * @param string $permtype
+     * @return array
+     */
     public static function getPermissionCat($permtype = 'xmarticle_view')
     {
         global $xoopsUser;
@@ -85,6 +97,14 @@ class Utility
         return $categories;
     }
 
+    /**
+     * @param string $field_type
+     * @param int    $fielddata_fid
+     * @param int    $fielddata_aid
+     * @param string $fielddata_value
+     * @param bool   $action
+     * @return string
+     */
     public static function saveFielddata($field_type = '', $fielddata_fid = 0, $fielddata_aid = 0, $fielddata_value = '', $action = false)
     {
         if (false === $action) {
@@ -158,6 +178,11 @@ class Utility
         return $error_message;
     }
 
+    /**
+     * @param int $fielddata_aid
+     * @param int $fielddata_fid
+     * @return string
+     */
     public static function getFielddata($fielddata_aid = 0, $fielddata_fid = 0)
     {
         require_once dirname(__DIR__) . '/include/common.php';
@@ -189,6 +214,11 @@ class Utility
         return $value;
     }
 
+    /**
+     * @param array $fields
+     * @param int   $fielddata_aid
+     * @return array
+     */
     public static function getArticleFields($fields = [], $fielddata_aid = 0)
     {
         $values = [];
@@ -256,6 +286,11 @@ class Utility
         return $values;
     }
 
+    /**
+     * @param $category_id
+     * @param $article_arr
+     * @return int
+     */
     public static function articlePerCat($category_id, $article_arr)
     {
         $count = 0;
@@ -268,6 +303,10 @@ class Utility
         return $count;
     }
 
+    /**
+     * @param $category_id
+     * @return string
+     */
     public static function articleNamePerCat($category_id)
     {
         require_once dirname(__DIR__) . '/include/common.php';
@@ -287,6 +326,11 @@ class Utility
         return $article_name;
     }
 
+    /**
+     * @param      $article_id
+     * @param bool $action
+     * @return mixed
+     */
     public static function cloneArticle($article_id, $action = false)
     {
         if (false === $action) {
