@@ -354,7 +354,7 @@ class Article extends \XoopsObject
         }
         if (\Xmf\Request::hasVar('article_date', 'POST')) {
             if ('Y' === $_POST['date_update']) {
-                $this->setVar('article_date', strtotime(Xmf\Request::getString('article_date', '')));
+                $this->setVar('article_date', strtotime(\Xmf\Request::getString('article_date', '')));
             }
             $this->setVar('article_mdate', time());
         } else {
@@ -362,7 +362,7 @@ class Article extends \XoopsObject
         }
         if (\Xmf\Request::hasVar('article_mdate', 'POST')) {
             if ('Y' === $_POST['mdate_update']) {
-                $this->setVar('article_mdate', strtotime(Xmf\Request::getString('article_mdate', '')));
+                $this->setVar('article_mdate', strtotime(\Xmf\Request::getString('article_mdate', '')));
             }
             if ('R' === $_POST['mdate_update']) {
                 $this->setVar('article_mdate', 0);

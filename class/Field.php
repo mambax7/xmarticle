@@ -111,7 +111,7 @@ class Field extends \XoopsObject
             $default    = [];
         }
         // type
-        $form->addElement(new xoopsFormLabel(_MA_XMARTICLE_FIELD_TYPE, $field_name));
+        $form->addElement(new \XoopsFormLabel(_MA_XMARTICLE_FIELD_TYPE, $field_name));
 
         // name
         $form->addElement(new \XoopsFormText(_MA_XMARTICLE_FIELD_NAME, 'field_name', 50, 255, $this->getVar('field_name')), true);
