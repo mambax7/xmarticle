@@ -105,9 +105,9 @@ class Utility
      * @param bool|string   $action
      * @return string
      */
-    public static function saveFielddata($field_type = '', $fielddata_fid = 0, $fielddata_aid = 0, $fielddata_value = '', $action = false)
+    public static function saveFielddata($field_type = '', $fielddata_fid = 0, $fielddata_aid = 0, $fielddata_value = '', $action = null)
     {
-        if (false === $action) {
+        if (null === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         if (0 == $fielddata_fid || 0 == $fielddata_aid || '' == $field_type) {
@@ -328,12 +328,12 @@ class Utility
 
     /**
      * @param             $article_id
-     * @param bool|string $action
+     * @param null|string $action
      * @return mixed
      */
-    public static function cloneArticle($article_id, $action = false)
+    public static function cloneArticle($article_id, $action = null)
     {
-        if (false === $action) {
+        if (null === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         require_once dirname(__DIR__) . '/include/common.php';

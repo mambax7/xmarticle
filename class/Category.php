@@ -56,12 +56,12 @@ class Category extends \XoopsObject
 
     /**
      * @param      $categoryHandler
-     * @param bool|string $action
+     * @param null|string $action
      * @return mixed
      */
-    public function saveCategory($categoryHandler, $action = false)
+    public function saveCategory($categoryHandler, $action = null)
     {
-        if (false === $action) {
+        if (null === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         $error_message = '';
@@ -142,15 +142,15 @@ class Category extends \XoopsObject
     }
 
     /**
-     * @param bool|string $action
+     * @param null|string $action
      * @return \XoopsThemeForm
      */
-    public function getForm($action = false)
+    public function getForm($action = null)
     {
         $upload_size = 500000;
         /** @var \XoopsModules\Xmarticle\Helper $helper */
         $helper = \XoopsModules\Xmarticle\Helper::getInstance();
-        if (false === $action) {
+        if (null === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';

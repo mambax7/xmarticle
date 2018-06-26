@@ -50,12 +50,12 @@ class Article extends \XoopsObject
     }
 
     /**
-     * @param bool|string $action
+     * @param null|string $action
      * @return \XoopsThemeForm
      */
-    public function getFormCategory($action = false)
+    public function getFormCategory($action = null)
     {
-        if (false === $action) {
+        if (null === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
@@ -92,17 +92,17 @@ class Article extends \XoopsObject
     /**
      * @param int  $article_cid
      * @param int  $old_article_cid
-     * @param bool|string $action
+     * @param null|string $action
      * @return \XoopsThemeForm
      */
-    public function getForm($article_cid = 0, $old_article_cid = 0, $action = false)
+    public function getForm($article_cid = 0, $old_article_cid = 0, $action = null)
     {
         global $xoopsUser;
         
         $upload_size = 500000;
         /** @var \XoopsModules\Xmarticle\Helper $helper */
         $helper = \XoopsModules\Xmarticle\Helper::getInstance();
-        if (false === $action) {
+        if (null === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
@@ -313,13 +313,13 @@ class Article extends \XoopsObject
 
     /**
      * @param      $articleHandler
-     * @param bool|string $action
+     * @param null|string $action
      * @return mixed
      */
-    public function saveArticle($articleHandler, $action = false)
+    public function saveArticle($articleHandler, $action = null)
     {
         global $xoopsUser;
-        if (false === $action) {
+        if (null === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         require_once dirname(__DIR__) . '/include/common.php';

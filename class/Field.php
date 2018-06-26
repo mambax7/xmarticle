@@ -47,12 +47,12 @@ class Field extends \XoopsObject
     }
 
     /**
-     * @param bool|string $action
+     * @param null|string $action
      * @return \XoopsThemeForm
      */
-    public function getFormTypes($action = false)
+    public function getFormTypes($action = null)
     {
-        if (false === $action) {
+        if (null === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
@@ -77,11 +77,11 @@ class Field extends \XoopsObject
      * @param bool|string   $action
      * @return \XoopsThemeForm
      */
-    public function getForm($field_type = '', $action = false)
+    public function getForm($field_type = '', $action = null)
     {
         /** @var \XoopsModules\Xmarticle\Helper $helper */
         $helper = \XoopsModules\Xmarticle\Helper::getInstance();
-        if (false === $action) {
+        if (null === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
@@ -263,12 +263,12 @@ class Field extends \XoopsObject
 
     /**
      * @param      $fieldHandler
-     * @param bool|string $action
+     * @param null|string $action
      * @return mixed
      */
-    public function saveField($fieldHandler, $action = false)
+    public function saveField($fieldHandler, $action = null)
     {
-        if (false === $action) {
+        if (null === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         $error_message = '';
