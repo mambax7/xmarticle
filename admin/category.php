@@ -19,8 +19,9 @@
 
 use Xmf\Module\Admin;
 use Xmf\Request;
+use  XoopsModules\Xmarticle;
 
-require __DIR__ . '/admin_header.php';
+require_once __DIR__ . '/admin_header.php';
 $moduleAdmin = Admin::getInstance();
 $moduleAdmin->displayNavigation('category.php');
 
@@ -191,4 +192,4 @@ switch ($op) {
 
 $xoopsTpl->display('db:xmarticle_admin_category.tpl');
 
-require __DIR__ . '/admin_footer.php';
+require_once __DIR__ . '/admin_footer.php';

@@ -1,4 +1,5 @@
-<?php
+<?php namespace XoopsModules\Xmarticle;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -22,14 +23,14 @@ use XoopsModules\Xmarticle;
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
- * Class xmarticle_article
+ * Class Article
  */
-class xmarticle_article extends \XoopsObject
+class Article extends \XoopsObject
 {
     
     // constructor
     /**
-     * xmarticle_article constructor.
+     * Article constructor.
      */
     public function __construct()
     {
@@ -58,7 +59,7 @@ class xmarticle_article extends \XoopsObject
             $action = $_SERVER['REQUEST_URI'];
         }
         require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-        include  dirname(__DIR__) . '/include/common.php';
+        require_once dirname(__DIR__) . '/include/common.php';
 
         // Get Permission to submit
         $submitPermissionCat = Xmarticle\Utility::getPermissionCat('xmarticle_submit');
@@ -99,12 +100,13 @@ class xmarticle_article extends \XoopsObject
         global $xoopsUser;
         
         $upload_size = 500000;
-        $helper = \Xmf\Module\Helper::getHelper('xmarticle');
+        /** @var \XoopsModules\Xmarticle\Helper $helper */
+        $helper = \XoopsModules\Xmarticle\Helper::getInstance();
         if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-        include  dirname(__DIR__) . '/include/common.php';
+        require_once dirname(__DIR__) . '/include/common.php';
         
         //form title
         $title = $this->isNew() ? sprintf(_MA_XMARTICLE_ADD) : sprintf(_MA_XMARTICLE_EDIT);
@@ -320,7 +322,7 @@ class xmarticle_article extends \XoopsObject
         if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
-        include  dirname(__DIR__) . '/include/common.php';
+        require_once dirname(__DIR__) . '/include/common.php';
         $error_message = '';
         //logo
         $uploadirectory = '/xmarticle/images/article';
@@ -345,12 +347,12 @@ class xmarticle_article extends \XoopsObject
         $this->setVar('article_description', Xmf\Request::getText('article_description', ''));
         $article_cid = Xmf\Request::getInt('article_cid', 0);
         $this->setVar('article_cid', $article_cid);
-        if (isset($_POST['article_userid'])) {
+        if (\Xmf\Request::hasVar('article_userid', 'POST')) {
             $this->setVar('article_userid', Xmf\Request::getInt('article_userid', 0));
         } else {
             $this->setVar('article_userid', !empty($xoopsUser) ? $xoopsUser->getVar('uid') : 0);
         }
-        if (isset($_POST['article_date'])) {
+        if (\Xmf\Request::hasVar('article_date', 'POST')) {
             if ('Y' === $_POST['date_update']) {
                 $this->setVar('article_date', strtotime(Xmf\Request::getString('article_date', '')));
             }
@@ -358,7 +360,7 @@ class xmarticle_article extends \XoopsObject
         } else {
             $this->setVar('article_date', time());
         }
-        if (isset($_POST['article_mdate'])) {
+        if (\Xmf\Request::hasVar('article_mdate', 'POST')) {
             if ('Y' === $_POST['mdate_update']) {
                 $this->setVar('article_mdate', strtotime(Xmf\Request::getString('article_mdate', '')));
             }
@@ -429,20 +431,5 @@ class xmarticle_article extends \XoopsObject
         $newEnreg = $xoopsDB->getInsertId();
 
         return $newEnreg;
-    }
-}
-
-/**
- * Class xmarticlexmarticle_articleHandler
- */
-class xmarticlexmarticle_articleHandler extends \XoopsPersistableObjectHandler
-{
-    /**
-     * xmarticlexmarticle_articleHandler constructor.
-     * @param null|\XoopsDatabase $db
-     */
-    public function __construct($db)
-    {
-        parent::__construct($db, 'xmarticle_article', 'xmarticle_article', 'article_id', 'article_name');
     }
 }

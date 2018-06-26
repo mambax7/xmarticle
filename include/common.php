@@ -20,11 +20,11 @@ use Xmf\Module\Admin;
  */
 class_exists(Admin::class) || die('XMF is required.');
 
-
+/** @var \XoopsModules\Xmarticle\Helper $helper */
 $helper  = \XoopsModules\Xmarticle\Helper::getInstance();
 
 // Get handler
-$categoryHandler  = $helper->getHandler('xmarticle_category');
-$fieldHandler     = $helper->getHandler('xmarticle_field');
-$fielddataHandler = $helper->getHandler('xmarticle_fielddata');
-$articleHandler   = $helper->getHandler('xmarticle_article');
+$categoryHandler  = $helper->getHandler('Category');
+$fieldHandler     = $helper->getHandler('Field');
+$fielddataHandler = $helper->getHandler('Fielddata');
+$articleHandler   = $helper->getHandler('Article');

@@ -1,4 +1,5 @@
-<?php
+<?php namespace XoopsModules\Xmarticle;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -8,26 +9,31 @@
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
+
 /**
+ * xmarticle module
  *
  * @copyright       XOOPS Project (https://xoops.org)
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @author          XOOPS Project <www.xoops.org> <www.xoops.ir>
+ * @author          Mage Gregory (AKA Mage)
  */
+
+use XoopsModules\Xmarticle;
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
+
 /**
- * Class XmarticleCorePreload
+ * Class ArticleHandler
  */
-class XmarticleCorePreload extends \XoopsPreloadItem
+class ArticleHandler extends \XoopsPersistableObjectHandler
 {
-    // to add PSR-4 autoloader
     /**
-     * @param $args
+     * ArticleHandler constructor.
+     * @param null|\XoopsDatabase $db
      */
-    public static function eventCoreIncludeCommonEnd($args)
+    public function __construct($db)
     {
-        require_once __DIR__   . '/autoloader.php';
+        parent::__construct($db, 'xmarticle_article', Article::class, 'article_id', 'article_name');
     }
 }

@@ -30,7 +30,7 @@ use XoopsModules\Xmarticle;
  */
 function xoops_module_pre_install_xmarticle(\XoopsModule $module)
 {
-    include  dirname(__DIR__) . '/preloads/autoloader.php';
+    require_once dirname(__DIR__) . '/preloads/autoloader.php';
     /** @var Xmarticle\Utility $utility */
     $utility = new \XoopsModules\Xmarticle\Utility();
     $xoopsSuccess = $utility::checkVerXoops($module);
@@ -59,10 +59,10 @@ function xoops_module_install_xmarticle(\XoopsModule $module)
     require_once   dirname(__DIR__) . '/include/config.php';
 
     $moduleDirName = basename(dirname(__DIR__));
-
+    /** @var Xmarticle\Helper $helper */
     $helper       = Xmarticle\Helper::getInstance();
     $utility      = new Xmarticle\Utility();
-    $configurator = new Xmarticle\Common\CommonConfigurator();
+    $configurator = new Xmarticle\Common\Configurator();
     // Load language files
     $helper->loadLanguage('admin');
     $helper->loadLanguage('modinfo');

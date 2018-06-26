@@ -337,4 +337,4 @@ if ('' != $search) {
 //SEO
 // pagetitle
 $xoopsTpl->assign('xoops_pagetitle', \Xmf\Metagen::generateSeoTitle(_MA_XMARTICLE_SEARCH . '-' . $xoopsModule->name()));
-include XOOPS_ROOT_PATH . '/footer.php';
+require_once XOOPS_ROOT_PATH . '/footer.php';

@@ -94,4 +94,4 @@ $xoTheme->addMeta('meta', 'description', \Xmf\Metagen::generateDescription($cate
 $keywords = \Xmf\Metagen::generateKeywords($category->getVar('category_description'), 10);
 $xoTheme->addMeta('meta', 'keywords', implode(', ', $keywords));
 
-include XOOPS_ROOT_PATH.'/footer.php';
+require_once XOOPS_ROOT_PATH.'/footer.php';

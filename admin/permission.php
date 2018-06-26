@@ -19,8 +19,9 @@
 
 use Xmf\Module\Admin;
 use Xmf\Request;
+use  XoopsModules\Xmarticle;
 
-require __DIR__ . '/admin_header.php';
+require_once __DIR__ . '/admin_header.php';
 require_once XOOPS_ROOT_PATH.'/class/xoopsform/grouppermform.php';
 $moduleAdmin = Admin::getInstance();
 $moduleAdmin->displayNavigation('permission.php');
@@ -84,4 +85,4 @@ $xoopsTpl->assign('form', $permissionsForm->render());
 
 $xoopsTpl->display('db:xmarticle_admin_permission.tpl');
 
-require __DIR__ . '/admin_footer.php';
+require_once __DIR__ . '/admin_footer.php';

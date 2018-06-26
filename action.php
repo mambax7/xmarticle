@@ -141,4 +141,4 @@ if ('clone' === $op || 'edit' === $op || 'del' === $op || 'add' === $op || 'load
 } else {
     redirect_header('index.php', 2, _NOPERM);
 }
-include XOOPS_ROOT_PATH . '/footer.php';
+require_once XOOPS_ROOT_PATH . '/footer.php';

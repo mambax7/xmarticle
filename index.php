@@ -77,4 +77,4 @@ if ($category_count > 0 && !empty($viewPermissionCat)) {
 $xoopsTpl->assign('xoops_pagetitle', $xoopsModule->name());
 //keywords
 $xoTheme->addMeta('meta', 'keywords', $keywords);
-include XOOPS_ROOT_PATH . '/footer.php';
+require_once XOOPS_ROOT_PATH . '/footer.php';

@@ -10,6 +10,7 @@
 */
 
 use Xmf\Module\Admin;
+use  XoopsModules\Xmarticle;
 
 /**
  * xmarticle module
@@ -28,7 +29,7 @@ require_once  dirname(__DIR__) . '/include/common.php';
 xoops_load('utility', basename(dirname(__DIR__)));
 
 class_exists(Admin::class) || die('XMF is required.');
-
+/** @var \XoopsModules\Xmarticle\Helper $helper */
 $helper  = \XoopsModules\Xmarticle\Helper::getInstance();
 
 // Load language files

@@ -1,4 +1,5 @@
-<?php
+<?php namespace XoopsModules\Xmarticle;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -20,13 +21,13 @@
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
- * Class xmarticle_fielddata
+ * Class Fielddata
  */
-class xmarticle_fielddata extends \XoopsObject
+class Fielddata extends \XoopsObject
 {
     // constructor
     /**
-     * xmarticle_fielddata constructor.
+     * Fielddata constructor.
      */
     public function __construct()
     {
@@ -48,20 +49,5 @@ class xmarticle_fielddata extends \XoopsObject
         $newEnreg = $xoopsDB->getInsertId();
 
         return $newEnreg;
-    }
-}
-
-/**
- * Class xmarticlexmarticle_fielddataHandler
- */
-class xmarticlexmarticle_fielddataHandler extends \XoopsPersistableObjectHandler
-{
-    /**
-     * xmarticlexmarticle_fielddataHandler constructor.
-     * @param null|\XoopsDatabase $db
-     */
-    public function __construct($db)
-    {
-        parent::__construct($db, 'xmarticle_fielddata', 'xmarticle_fielddata', 'fielddata_id', 'fielddata_fid');
     }
 }

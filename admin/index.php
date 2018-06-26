@@ -19,7 +19,7 @@
 
 use Xmf\Module\Admin;
 
-require __DIR__ . '/admin_header.php';
+require_once __DIR__ . '/admin_header.php';
 
 $moduleAdmin = Admin::getInstance();
 $moduleAdmin->displayNavigation(basename(__FILE__));
@@ -40,4 +40,4 @@ foreach (array_keys($folder) as $i) {
 }
 $moduleAdmin->displayIndex();
 
-require __DIR__ . '/admin_footer.php';
+require_once __DIR__ . '/admin_footer.php';

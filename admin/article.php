@@ -19,8 +19,9 @@
 
 use Xmf\Module\Admin;
 use Xmf\Request;
+use  XoopsModules\Xmarticle;
 
-require __DIR__ . '/admin_header.php';
+require_once __DIR__ . '/admin_header.php';
 $moduleAdmin = Admin::getInstance();
 $moduleAdmin->displayNavigation('article.php');
 
@@ -253,4 +254,4 @@ switch ($op) {
 
 $xoopsTpl->display('db:xmarticle_admin_article.tpl');
 
-require __DIR__ . '/admin_footer.php';
+require_once __DIR__ . '/admin_footer.php';

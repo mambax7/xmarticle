@@ -1,4 +1,5 @@
-<?php
+<?php namespace XoopsModules\Xmarticle;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -20,13 +21,13 @@
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
- * Class xmarticle_field
+ * Class Field
  */
-class xmarticle_field extends \XoopsObject
+class Field extends \XoopsObject
 {
     // constructor
     /**
-     * xmarticle_field constructor.
+     * Field constructor.
      */
     public function __construct()
     {
@@ -76,7 +77,8 @@ class xmarticle_field extends \XoopsObject
      */
     public function getForm($field_type = '', $action = false)
     {
-        $helper = \Xmf\Module\Helper::getHelper('xmarticle');
+        /** @var \XoopsModules\Xmarticle\Helper $helper */
+        $helper = \XoopsModules\Xmarticle\Helper::getInstance();
         if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
@@ -334,7 +336,7 @@ class xmarticle_field extends \XoopsObject
                     }
                 }
                 // remove
-                if (isset($_REQUEST['removeOptions']) && is_array($_REQUEST['removeOptions'])) {
+                if (\Xmf\Request::hasVar('removeOptions', 'REQUEST') && is_array($_REQUEST['removeOptions'])) {
                     foreach ($_REQUEST['removeOptions'] as $index) {
                         unset($options[$index]);
                         unset($default[$index]);
@@ -378,7 +380,7 @@ class xmarticle_field extends \XoopsObject
         if ('' == $error_message) {
             $this->setVar('field_weight', Xmf\Request::getInt('field_weight', 0));
             if ($fieldHandler->insert($this)) {
-                if (true === (Xmf\Request::getBool('addmoreoptions', false))) {
+                if (true === Xmf\Request::getBool('addmoreoptions', false)) {
                     redirect_header($action . '?op=edit&amp;field_id=' . $this->getVar('field_id'), 2, _MA_XMARTICLE_REDIRECT_SAVE);
                 } else {
                     redirect_header($action, 2, _MA_XMARTICLE_REDIRECT_SAVE);
@@ -389,20 +391,5 @@ class xmarticle_field extends \XoopsObject
         }
 
         return $error_message;
-    }
-}
-
-/**
- * Class xmarticlexmarticle_fieldHandler
- */
-class xmarticlexmarticle_fieldHandler extends \XoopsPersistableObjectHandler
-{
-    /**
-     * xmarticlexmarticle_fieldHandler constructor.
-     * @param null|\XoopsDatabase $db
-     */
-    public function __construct($db)
-    {
-        parent::__construct($db, 'xmarticle_field', 'xmarticle_field', 'field_id', 'field_name');
     }
 }

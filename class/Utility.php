@@ -18,11 +18,22 @@
  * @author          Mage Gregory (AKA Mage)
  */
 
+use Xmf\Request;
+use XoopsModules\Xmarticle;
+use XoopsModules\Xmarticle\Common;
+
 /**
- * Class XmarticleUtility
+ * Class Utility
  */
 class Utility
 {
+    use Common\VersionChecks; //checkVerXoops, checkVerPhp Traits
+
+    use Common\ServerStats; // getServerStats Trait
+
+    use Common\FilesManagement; // Files Management Trait
+
+    //--------------- Custom module methods -----------------------------
     public static function fieldTypes()
     {
         $types = [
@@ -45,7 +56,7 @@ class Utility
 
     public static function delFilddataArticle($article_id = 0)
     {
-        include  dirname(__DIR__) . '/include/common.php';
+        require_once dirname(__DIR__) . '/include/common.php';
         if (0 == $article_id) {
             return false;
             exit();
@@ -64,7 +75,8 @@ class Utility
     {
         global $xoopsUser;
         $categories    = [];
-        $helper        = Xmf\Module\Helper::getHelper('xmarticle');
+        /** @var \XoopsModules\Xmarticle\Helper $helper */
+        $helper = \XoopsModules\Xmarticle\Helper::getInstance();
         $moduleHandler = $helper->getModule();
         $groups        = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
         $grouppermHandler  = xoops_getHandler('groupperm');
@@ -81,7 +93,7 @@ class Utility
         if (0 == $fielddata_fid || 0 == $fielddata_aid || '' == $field_type) {
             redirect_header($action, 2, _MA_XMARTICLE_ERROR);
         }
-        include  dirname(__DIR__) . '/include/common.php';
+        require_once dirname(__DIR__) . '/include/common.php';
         switch ($field_type) {
             case 'vs_text':
             case 's_text':
@@ -148,7 +160,7 @@ class Utility
 
     public static function getFielddata($fielddata_aid = 0, $fielddata_fid = 0)
     {
-        include  dirname(__DIR__) . '/include/common.php';
+        require_once dirname(__DIR__) . '/include/common.php';
         $criteria = new \CriteriaCompo();
         $criteria->add(new \Criteria('fielddata_aid', $fielddata_aid));
         $criteria->add(new \Criteria('fielddata_fid', $fielddata_fid));
@@ -181,7 +193,7 @@ class Utility
     {
         $values = [];
         if (0 != count($fields)) {
-            include  dirname(__DIR__) . '/include/common.php';
+            require_once dirname(__DIR__) . '/include/common.php';
             // field
             $criteria = new \CriteriaCompo();
             $criteria->setSort('field_weight ASC, field_name');
@@ -258,7 +270,7 @@ class Utility
 
     public static function articleNamePerCat($category_id)
     {
-        include  dirname(__DIR__) . '/include/common.php';
+        require_once dirname(__DIR__) . '/include/common.php';
         $article_name = '';
         $criteria     = new \CriteriaCompo();
         $criteria->setSort('article_name');
@@ -280,7 +292,7 @@ class Utility
         if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
-        include  dirname(__DIR__) . '/include/common.php';
+        require_once dirname(__DIR__) . '/include/common.php';
         $article = $articleHandler->get($article_id);
         if (0 == count($article)) {
             redirect_header($action, 2, _MA_XMARTICLE_ERROR_NOARTICLE);

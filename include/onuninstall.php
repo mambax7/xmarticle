@@ -36,7 +36,8 @@ function xoops_module_uninstall_xmarticle(\XoopsModule $module)
 
     $moduleDirName      = basename(dirname(__DIR__));
     $moduleDirNameUpper = strtoupper($moduleDirName);
-    $helper             = Xmarticle\Helper::getInstance();
+    /** @var Xmarticle\Helper $helper */
+    $helper = Xmarticle\Helper::getInstance();
 
     /** @var Xmarticle\Utility $utility */
     $utility = new Xmarticle\Utility();

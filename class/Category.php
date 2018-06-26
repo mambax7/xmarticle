@@ -1,4 +1,5 @@
-<?php
+<?php namespace XoopsModules\Xmarticle;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -20,13 +21,13 @@
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
- * Class xmarticle_category
+ * Class Category
  */
-class xmarticle_category extends \XoopsObject
+class Category extends \XoopsObject
 {
     // constructor
     /**
-     * xmarticle_category constructor.
+     * Category constructor.
      */
     public function __construct()
     {
@@ -94,7 +95,7 @@ class xmarticle_category extends \XoopsObject
 
         $fields = $this->getVar('category_fields');
         // remove field
-        if (isset($_REQUEST['removeFields']) && is_array($_REQUEST['removeFields'])) {
+        if (\Xmf\Request::hasVar('removeFields', 'REQUEST') && is_array($_REQUEST['removeFields'])) {
             foreach ($_REQUEST['removeFields'] as $index) {
                 unset($fields[$index]);
             }
@@ -127,7 +128,7 @@ class xmarticle_category extends \XoopsObject
                 // permission submit
                 $groups_submit = \Xmf\Request::getArray('xmarticle_submit_perms', [], 'POST');
                 $permHelper->savePermissionForItem('xmarticle_submit', $perm_id, $groups_submit);
-                if (true === (Xmf\Request::getBool('addmorefields', false))) {
+                if (true === Xmf\Request::getBool('addmorefields', false)) {
                     redirect_header($action . '?op=edit&amp;category_id=' . $this->getVar('category_id'), 2, _MA_XMARTICLE_REDIRECT_SAVE);
                 } else {
                     redirect_header($action, 2, _MA_XMARTICLE_REDIRECT_SAVE);
@@ -147,12 +148,13 @@ class xmarticle_category extends \XoopsObject
     public function getForm($action = false)
     {
         $upload_size = 500000;
-        $helper      = \Xmf\Module\Helper::getHelper('xmarticle');
+        /** @var \XoopsModules\Xmarticle\Helper $helper */
+        $helper = \XoopsModules\Xmarticle\Helper::getInstance();
         if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-        include  dirname(__DIR__) . '/include/common.php';
+        require_once dirname(__DIR__) . '/include/common.php';
 
         //form title
         $title = $this->isNew() ? sprintf(_MA_XMARTICLE_ADD) : sprintf(_MA_XMARTICLE_EDIT);
@@ -261,20 +263,5 @@ class xmarticle_category extends \XoopsObject
         $form->addElement(new \XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
 
         return $form;
-    }
-}
-
-/**
- * Class xmarticlexmarticle_categoryHandler
- */
-class xmarticlexmarticle_categoryHandler extends \XoopsPersistableObjectHandler
-{
-    /**
-     * xmarticlexmarticle_categoryHandler constructor.
-     * @param null|\XoopsDatabase $db
-     */
-    public function __construct($db)
-    {
-        parent::__construct($db, 'xmarticle_category', 'xmarticle_category', 'category_id', 'category_name');
     }
 }
