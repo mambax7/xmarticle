@@ -117,7 +117,7 @@ if ('clone' === $op || 'edit' === $op || 'del' === $op || 'add' === $op || 'load
                     }
                     if ($articleHandler->delete($obj)) {
                         //Del logo
-                        if ('blank.gif' != $obj->getVar('article_logo')) {
+                        if ('blank.gif' !== $obj->getVar('article_logo')) {
                             $urlfile = $path_logo_article . $obj->getVar('article_logo');
                             if (is_file($urlfile)) {
                                 chmod($urlfile, 0777);
