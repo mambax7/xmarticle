@@ -86,12 +86,12 @@ class Category extends \XoopsObject
                 $error_message .= $uploader_category_img->getErrors();
             }
         } else {
-            $this->setVar('category_logo', Xmf\Request::getString('category_logo', ''));
+            $this->setVar('category_logo', \Xmf\Request::getString('category_logo', ''));
         }
-        $this->setVar('category_name', Xmf\Request::getString('category_name', ''));
-        $this->setVar('category_reference', Xmf\Request::getString('category_reference', ''));
-        $this->setVar('category_description', Xmf\Request::getText('category_description', ''));
-        $this->setVar('category_status', Xmf\Request::getInt('category_status', 1));
+        $this->setVar('category_name', \Xmf\Request::getString('category_name', ''));
+        $this->setVar('category_reference', \Xmf\Request::getString('category_reference', ''));
+        $this->setVar('category_description', \Xmf\Request::getText('category_description', ''));
+        $this->setVar('category_status', \Xmf\Request::getInt('category_status', 1));
 
         $fields = $this->getVar('category_fields');
         // remove field
@@ -113,7 +113,7 @@ class Category extends \XoopsObject
         }
         $this->setVar('category_fields', $fields);
         if ('' == $error_message) {
-            $this->setVar('category_weight', Xmf\Request::getInt('category_weight', 0));
+            $this->setVar('category_weight', \Xmf\Request::getInt('category_weight', 0));
             if ($categoryHandler->insert($this)) {
                 // permissions
                 if (0 == $this->get_new_enreg()) {
@@ -128,7 +128,7 @@ class Category extends \XoopsObject
                 // permission submit
                 $groups_submit = \Xmf\Request::getArray('xmarticle_submit_perms', [], 'POST');
                 $permHelper->savePermissionForItem('xmarticle_submit', $perm_id, $groups_submit);
-                if (true === Xmf\Request::getBool('addmorefields', false)) {
+                if (true === \Xmf\Request::getBool('addmorefields', false)) {
                     redirect_header($action . '?op=edit&amp;category_id=' . $this->getVar('category_id'), 2, _MA_XMARTICLE_REDIRECT_SAVE);
                 } else {
                     redirect_header($action, 2, _MA_XMARTICLE_REDIRECT_SAVE);

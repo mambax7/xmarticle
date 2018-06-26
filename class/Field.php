@@ -18,6 +18,8 @@
  * @author          Mage Gregory (AKA Mage)
  */
 
+use XoopsModules\Xmarticle;
+
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
@@ -275,16 +277,16 @@ class Field extends \XoopsObject
             $error_message .= _MA_XMARTICLE_ERROR_WEIGHT . '<br>';
             $this->setVar('field_weight', 0);
         }
-        $field_type = Xmf\Request::getString('field_type', '');
+        $field_type = \Xmf\Request::getString('field_type', '');
         if ('' == $field_type) {
             redirect_header($action, 2, _MA_XMARTICLE_ERROR_FIELDNOTCONFIGURABLE);
         }
         $this->setVar('field_type', $field_type);
-        $this->setVar('field_name', Xmf\Request::getString('field_name', ''));
-        $this->setVar('field_description', Xmf\Request::getText('field_description', ''));
-        $this->setVar('field_required', Xmf\Request::getInt('field_required', 1));
-        $this->setVar('field_search', Xmf\Request::getInt('field_search', 1));
-        $this->setVar('field_status', Xmf\Request::getInt('field_status', 1));
+        $this->setVar('field_name', \Xmf\Request::getString('field_name', ''));
+        $this->setVar('field_description', \Xmf\Request::getText('field_description', ''));
+        $this->setVar('field_required', \Xmf\Request::getInt('field_required', 1));
+        $this->setVar('field_search', \Xmf\Request::getInt('field_search', 1));
+        $this->setVar('field_status', \Xmf\Request::getInt('field_status', 1));
 
         switch ($field_type) {
             case 'label':
@@ -295,10 +297,10 @@ class Field extends \XoopsObject
             case 'text':
             case 'radio_yn':
             case 'number':
-                $this->setVar('field_default', Xmf\Request::getString('field_default', ''));
+                $this->setVar('field_default', \Xmf\Request::getString('field_default', ''));
                 break;
             case 'text':
-                $this->setVar('field_default', Xmf\Request::getText('field_default', ''));
+                $this->setVar('field_default', \Xmf\Request::getText('field_default', ''));
                 break;
             case 'select':
             case 'select_multi':
@@ -310,9 +312,9 @@ class Field extends \XoopsObject
                 if (\Xmf\Request::hasVar('addOption', 'REQUEST')) {
                     $i = 0;
                     if ('select_multi' === $field_type || 'checkbox' === $field_type) {
-                        $field_default = Xmf\Request::getArray('field_default', []);
+                        $field_default = \Xmf\Request::getArray('field_default', []);
                     } else {
-                        $field_default = Xmf\Request::getInt('field_default', -1);
+                        $field_default = \Xmf\Request::getInt('field_default', -1);
                     }
                     foreach ($_REQUEST['addOption'] as $option) {
                         if (empty($option['value'])) {
@@ -343,7 +345,7 @@ class Field extends \XoopsObject
                     }
                 }
                 // save sort
-                $field_sort = Xmf\Request::getString('field_sort', 'DEF');
+                $field_sort = \Xmf\Request::getString('field_sort', 'DEF');
                 switch ($field_sort) {
                     case 'VLH':
                         asort($options);
@@ -378,9 +380,9 @@ class Field extends \XoopsObject
                 break;
         }
         if ('' == $error_message) {
-            $this->setVar('field_weight', Xmf\Request::getInt('field_weight', 0));
+            $this->setVar('field_weight', \Xmf\Request::getInt('field_weight', 0));
             if ($fieldHandler->insert($this)) {
-                if (true === Xmf\Request::getBool('addmoreoptions', false)) {
+                if (true === \Xmf\Request::getBool('addmoreoptions', false)) {
                     redirect_header($action . '?op=edit&amp;field_id=' . $this->getVar('field_id'), 2, _MA_XMARTICLE_REDIRECT_SAVE);
                 } else {
                     redirect_header($action, 2, _MA_XMARTICLE_REDIRECT_SAVE);

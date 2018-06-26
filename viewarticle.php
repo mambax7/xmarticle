@@ -17,7 +17,8 @@
  * @author          Mage Gregory (AKA Mage)
  */
 
-use \Xmf\Request;
+use Xmf\Request;
+use XoopsModules\Xmarticle;
 
 require_once __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'xmarticle_viewarticle.tpl';
@@ -100,7 +101,7 @@ if ($field_count > 0) {
 //xmdoc
 if (xoops_isActiveModule('xmdoc') && 1 == $helper->getConfig('general_xmdoc', 0)) {
     xoops_load('utility', 'xmdoc');
-    XmdocUtility::renderDocuments($xoopsTpl, $xoTheme, 'xmarticle', $article_id);
+    \XoopsModules\Xmdoc\Utility::renderDocuments($xoopsTpl, $xoTheme, 'xmarticle', $article_id);
 } else {
     $xoopsTpl->assign('xmdoc_viewdocs', false);
 }

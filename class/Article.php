@@ -130,7 +130,7 @@ class Article extends \XoopsObject
         }
         // category
         $category = $categoryHandler->get($article_cid);
-        $form->addElement(new xoopsFormLabel(_MA_XMARTICLE_ARTICLE_CATEGORY, $category->getVar('category_name')));
+        $form->addElement(new \XoopsFormLabel(_MA_XMARTICLE_ARTICLE_CATEGORY, $category->getVar('category_name')));
         $form->addElement(new \XoopsFormHidden('article_cid', $article_cid));
 
         // title
@@ -138,7 +138,7 @@ class Article extends \XoopsObject
         
         // reference
         $reference = new \XoopsFormElementTray(_MA_XMARTICLE_ARTICLE_REFERENCE);
-        $category_reference = new xoopsFormLabel($category->getVar('category_reference'));
+        $category_reference = new \XoopsFormLabel($category->getVar('category_reference'));
         $reference->addElement($category_reference);
         $reference->addElement(new \XoopsFormText('', 'article_reference', 20, 50, $this->getVar('article_reference')));
         $form->addElement($reference, true);
@@ -176,7 +176,7 @@ class Article extends \XoopsObject
         //xmdoc
         if (xoops_isActiveModule('xmdoc') && 1 == $helper->getConfig('general_xmdoc', 0)) {
             xoops_load('utility', 'xmdoc');
-            XmdocUtility::renderDocForm($form, 'xmarticle', $this->getVar('category_id'));
+            \XoopsModules\Xmdoc\Utility::renderDocForm($form, 'xmarticle', $this->getVar('category_id'));
         }
         
         // field
@@ -340,15 +340,15 @@ class Article extends \XoopsObject
                 $error_message .= $uploader_article_img->getErrors();
             }
         } else {
-            $this->setVar('article_logo', Xmf\Request::getString('article_logo', ''));
+            $this->setVar('article_logo', \Xmf\Request::getString('article_logo', ''));
         }
-        $this->setVar('article_name', Xmf\Request::getString('article_name', ''));
-        $this->setVar('article_reference', Xmf\Request::getString('article_reference', ''));
-        $this->setVar('article_description', Xmf\Request::getText('article_description', ''));
-        $article_cid = Xmf\Request::getInt('article_cid', 0);
+        $this->setVar('article_name', \Xmf\Request::getString('article_name', ''));
+        $this->setVar('article_reference', \Xmf\Request::getString('article_reference', ''));
+        $this->setVar('article_description', \Xmf\Request::getText('article_description', ''));
+        $article_cid = \Xmf\Request::getInt('article_cid', 0);
         $this->setVar('article_cid', $article_cid);
         if (\Xmf\Request::hasVar('article_userid', 'POST')) {
-            $this->setVar('article_userid', Xmf\Request::getInt('article_userid', 0));
+            $this->setVar('article_userid', \Xmf\Request::getInt('article_userid', 0));
         } else {
             $this->setVar('article_userid', !empty($xoopsUser) ? $xoopsUser->getVar('uid') : 0);
         }
@@ -374,12 +374,12 @@ class Article extends \XoopsObject
         if (false === $permission) {
             $this->setVar('article_status', 2);
         } else {
-            $this->setVar('article_status', Xmf\Request::getInt('article_status', 1));
+            $this->setVar('article_status', \Xmf\Request::getInt('article_status', 1));
         }
         // Captcha
         if (1 == $helper->getConfig('general_captcha')) {
             xoops_load('xoopscaptcha');
-            $xoopsCaptcha = XoopsCaptcha::getInstance();
+            $xoopsCaptcha = \XoopsCaptcha::getInstance();
             if (! $xoopsCaptcha->verify()) {
                 $error_message .= $xoopsCaptcha->getMessage();
             }
@@ -405,7 +405,7 @@ class Article extends \XoopsObject
                 //xmdoc
                 if (xoops_isActiveModule('xmdoc') && 1 == $helper->getConfig('general_xmdoc', 0)) {
                     xoops_load('utility', 'xmdoc');
-                    $error_message .= XmdocUtility::saveDocuments('xmarticle', $fielddata_aid);
+                    $error_message .= \XoopsModules\Xmdoc\Utility::saveDocuments('xmarticle', $fielddata_aid);
                 }
                 if ('' == $error_message) {
                     if ('viewarticle.php' === $action) {

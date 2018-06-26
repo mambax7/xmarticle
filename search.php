@@ -17,7 +17,8 @@
  * @author          Mage Gregory (AKA Mage)
  */
 
-use \Xmf\Request;
+use Xmf\Request;
+use XoopsModules\Xmarticle;
 
 require_once __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'xmarticle_search.tpl';
