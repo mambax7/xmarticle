@@ -24,28 +24,36 @@ function xoops_module_install_xmarticle()
     //Creation ".$namemodule."/
     $dir = XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '';
     if (!is_dir($dir)) {
-        mkdir($dir, 0777);
+        if (!mkdir($dir, 0777) && !is_dir($dir)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $dir));
+        }
     }
     chmod($dir, 0777);
 
     //Creation ".$namemodule."/images/
     $dir = XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images';
     if (!is_dir($dir)) {
-        mkdir($dir, 0777);
+        if (!mkdir($dir, 0777) && !is_dir($dir)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $dir));
+        }
     }
     chmod($dir, 0777);
 
     //Creation ".$namemodule."/images/category
     $dir = XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/category';
     if (!is_dir($dir)) {
-        mkdir($dir, 0777);
+        if (!mkdir($dir, 0777) && !is_dir($dir)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $dir));
+        }
     }
     chmod($dir, 0777);
 
     //Creation ".$namemodule."/images/article
     $dir = XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/article';
     if (!is_dir($dir)) {
-        mkdir($dir, 0777);
+        if (!mkdir($dir, 0777) && !is_dir($dir)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $dir));
+        }
     }
     chmod($dir, 0777);
 
