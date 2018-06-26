@@ -102,7 +102,7 @@ class Utility
      * @param int    $fielddata_fid
      * @param int    $fielddata_aid
      * @param string $fielddata_value
-     * @param bool   $action
+     * @param bool|string   $action
      * @return string
      */
     public static function saveFielddata($field_type = '', $fielddata_fid = 0, $fielddata_aid = 0, $fielddata_value = '', $action = false)
@@ -327,8 +327,8 @@ class Utility
     }
 
     /**
-     * @param      $article_id
-     * @param bool $action
+     * @param             $article_id
+     * @param bool|string $action
      * @return mixed
      */
     public static function cloneArticle($article_id, $action = false)

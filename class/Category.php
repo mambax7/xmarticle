@@ -56,7 +56,7 @@ class Category extends \XoopsObject
 
     /**
      * @param      $categoryHandler
-     * @param bool $action
+     * @param bool|string $action
      * @return mixed
      */
     public function saveCategory($categoryHandler, $action = false)
@@ -142,7 +142,7 @@ class Category extends \XoopsObject
     }
 
     /**
-     * @param bool $action
+     * @param bool|string $action
      * @return \XoopsThemeForm
      */
     public function getForm($action = false)
